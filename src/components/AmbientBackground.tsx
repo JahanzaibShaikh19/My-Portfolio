@@ -2,25 +2,38 @@
 
 import { useEffect } from "react";
 
-const PARTICLES = Array.from({ length: 28 }, (_, index) => ({
+const PARTICLES = Array.from({ length: 16 }, (_, index) => ({
   id: index,
   left: `${(index * 37) % 100}%`,
   top: `${(index * 53) % 100}%`,
   delay: `${(index % 9) * 0.42}s`,
-  duration: `${7 + (index % 6)}s`,
+  duration: `${8 + (index % 6)}s`,
 }));
 
 export default function AmbientBackground() {
   useEffect(() => {
     const root = document.documentElement;
+    let frame = 0;
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight * 0.18;
+
+    const updateSpotlight = () => {
+      frame = 0;
+      root.style.setProperty("--spotlight-x", `${x}px`);
+      root.style.setProperty("--spotlight-y", `${y}px`);
+    };
 
     const handlePointerMove = (event: PointerEvent) => {
-      root.style.setProperty("--spotlight-x", `${event.clientX}px`);
-      root.style.setProperty("--spotlight-y", `${event.clientY}px`);
+      x = event.clientX;
+      y = event.clientY;
+      if (!frame) frame = window.requestAnimationFrame(updateSpotlight);
     };
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    return () => window.removeEventListener("pointermove", handlePointerMove);
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
