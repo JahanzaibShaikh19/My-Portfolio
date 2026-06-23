@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 881" role="img" aria-label="Happiness Jar project proof preview">
+  <defs>
+    <radialGradient id="glow1" cx="18%" cy="0%" r="70%">
+      <stop offset="0" stop-color="#ff7ab6" stop-opacity="0.7"/>
+      <stop offset="0.55" stop-color="#3b38a6" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="88%" cy="0%" r="72%">
+      <stop offset="0" stop-color="#76e4f7" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#1d2d75" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="jar" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b2b2d"/>
+      <stop offset="0.55" stop-color="#0f0f10"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <style>
+      .txt{font-family:Inter,Arial,sans-serif}.bold{font-weight:900}.med{font-weight:600}.soft{fill:#d1d5db}.muted{fill:#8b8f9b}
+    </style>
+  </defs>
+  <rect width="2048" height="881" fill="#020202"/>
+  <rect width="2048" height="881" fill="url(#glow1)"/>
+  <rect width="2048" height="881" fill="url(#glow2)"/>
+  <rect y="0" width="2048" height="40" fill="#101222" opacity="0.92"/>
+  <circle cx="988" cy="20" r="7" fill="#a855f7"/>
+  <text x="1050" y="25" class="txt med soft" font-size="15">Idea</text>
+  <text x="1135" y="25" class="txt med soft" font-size="15">Solutions</text>
+  <text x="1245" y="25" class="txt med soft" font-size="15">Download ›</text>
+  <text x="1390" y="25" class="txt med soft" font-size="15">Contact</text>
+
+  <rect x="0" y="40" width="2048" height="841" fill="#000" opacity="0.68"/>
+  <text x="1024" y="392" text-anchor="middle" class="txt bold soft" font-size="104" opacity="0.82">Happiness Jar</text>
+  <text x="1024" y="462" text-anchor="middle" class="txt med muted" font-size="26">Collect memories, calm your thoughts, and carry happiness wherever you go.</text>
+
+  <g transform="translate(752 590)">
+    <ellipse cx="270" cy="260" rx="285" ry="36" fill="#000" opacity="0.8" filter="url(#blur)"/>
+    <path d="M85 62 C85 35 105 20 130 20 H410 C435 20 455 35 455 62 V86 C455 107 437 119 415 119 H125 C103 119 85 107 85 86 Z" fill="#090909" stroke="#3f3f46" stroke-width="4"/>
+    <rect x="88" y="46" width="364" height="14" rx="7" fill="#151515" stroke="#56565d"/>
+    <rect x="90" y="72" width="360" height="12" rx="6" fill="#111" stroke="#3a3a3d"/>
+    <path d="M135 118 C122 162 104 192 98 260 C88 372 122 488 270 488 C418 488 452 372 442 260 C436 192 418 162 405 118 Z" fill="url(#jar)" stroke="#2a2a2d" stroke-width="5"/>
+    <path d="M150 142 C128 230 130 395 215 455" fill="none" stroke="#3c3c41" stroke-width="7" opacity="0.7"/>
+    <path d="M388 142 C410 230 408 395 323 455" fill="none" stroke="#1f1f22" stroke-width="9" opacity="0.9"/>
+    <ellipse cx="270" cy="150" rx="126" ry="22" fill="#1b1b1d" opacity="0.55"/>
+    <ellipse cx="270" cy="500" rx="140" ry="18" fill="#070707" opacity="0.9"/>
+  </g>
+
+  <circle cx="360" cy="205" r="2" fill="#fff" opacity="0.4"/>
+  <circle cx="1740" cy="180" r="2" fill="#fff" opacity="0.35"/>
+  <circle cx="1520" cy="535" r="2" fill="#fff" opacity="0.3"/>
+  <circle cx="620" cy="520" r="2" fill="#fff" opacity="0.28"/>
+</svg>
