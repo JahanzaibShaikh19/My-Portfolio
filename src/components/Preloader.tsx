@@ -5,12 +5,18 @@ import Image from "next/image";
 import { personal } from "@/data/content";
 
 export default function Preloader() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [hiding, setHiding] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setHiding(true), 1800);
-    const t2 = setTimeout(() => setVisible(false), 2400);
+    const alreadySeen = sessionStorage.getItem("portfolio-preloader-seen");
+    if (alreadySeen) return;
+
+    sessionStorage.setItem("portfolio-preloader-seen", "true");
+    setVisible(true);
+
+    const t1 = setTimeout(() => setHiding(true), 650);
+    const t2 = setTimeout(() => setVisible(false), 950);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -22,22 +28,21 @@ export default function Preloader() {
   return (
     <div
       className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center
-                  transition-opacity duration-500 ${hiding ? "opacity-0" : "opacity-100"}`}
+                  transition-opacity duration-300 ${hiding ? "opacity-0" : "opacity-100"}`}
+      aria-hidden="true"
     >
-      <div className="relative w-24 h-24">
-        {/* Profile image */}
+      <div className="relative w-20 h-20">
         <div className="w-full h-full rounded-full overflow-hidden">
           <Image
             src={personal.loaderImage}
             alt="Loading"
-            width={96}
-            height={96}
+            width={80}
+            height={80}
             className="object-cover w-full h-full"
             priority
           />
         </div>
 
-        {/* Spinning SVG rings */}
         <svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 100 100"
@@ -52,9 +57,7 @@ export default function Preloader() {
             fill="none"
             strokeDasharray="301"
             strokeDashoffset="301"
-            style={{
-              animation: "drawCircle 1.6s ease forwards",
-            }}
+            style={{ animation: "drawCircle 0.75s ease forwards" }}
           />
         </svg>
       </div>
