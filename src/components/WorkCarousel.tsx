@@ -11,21 +11,21 @@ type WorkCarouselProps = { images: string[] };
 
 export default function WorkCarousel({ images }: WorkCarouselProps) {
   return (
-    <div className="rounded-xl overflow-hidden">
+    <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/35">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
         loop={images.length > 1}
-        className="aspect-[16/8] w-full"
+        className="aspect-[16/9] w-full"
       >
         {images.map((src, idx) => (
-          <SwiperSlide key={idx} className="relative">
+          <SwiperSlide key={idx} className="relative bg-black/40">
             <Image
               src={src}
               alt={`Slide ${idx + 1}`}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="100vw"
               priority={idx === 0}
             />
