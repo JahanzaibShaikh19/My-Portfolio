@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { works } from "@/data/content";
+import { getPortfolioWorks } from "@/data/projectOverrides";
 import SectionTitle from "./SectionTitle";
 import RevealOnScroll from "./RevealOnScroll";
+import ProjectImage from "./ProjectImage";
 
 type FilterKey = "all" | "platform" | "ai" | "mobile";
 
@@ -16,7 +17,7 @@ const FILTERS: { key: FilterKey; label: string; matcher?: (work: (typeof works)[
     key: "platform",
     label: "Platforms",
     matcher: (work) =>
-      /platform|lms|web|property|energy/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
+      /platform|lms|web|property|energy|saas/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
   },
   {
     key: "ai",
@@ -28,17 +29,19 @@ const FILTERS: { key: FilterKey; label: string; matcher?: (work: (typeof works)[
     key: "mobile",
     label: "Mobile",
     matcher: (work) =>
-      /mobile|react native|app/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
+      /mobile|react native|app|wellbeing/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
   },
 ];
+
+const portfolioWorks = getPortfolioWorks(works);
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
 
   const filteredWorks = useMemo(() => {
-    if (activeFilter === "all") return works;
+    if (activeFilter === "all") return portfolioWorks;
     const filter = FILTERS.find((item) => item.key === activeFilter);
-    return filter?.matcher ? works.filter(filter.matcher) : works;
+    return filter?.matcher ? portfolioWorks.filter(filter.matcher) : portfolioWorks;
   }, [activeFilter]);
 
   return (
@@ -87,16 +90,15 @@ export default function Portfolio() {
               <article className="h-full">
                 <Link
                   href={`/work/${work.slug}`}
-                  className="portfolio-item interactive-card aspect-[4/3] block h-full rounded-2xl overflow-hidden bg-surface relative"
+                  className="portfolio-item interactive-card aspect-[16/9] block h-full rounded-2xl overflow-hidden bg-surface relative"
                 >
-                  <Image
+                  <ProjectImage
                     src={work.gridCover ?? work.cover}
                     alt={work.title}
-                    fill
-                    className="object-cover transition-opacity duration-300"
+                    className="object-contain transition-opacity duration-300 p-2"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     placeholder="blur"
-                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM4ODgiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM4ODgiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+"
                   />
                   <div className="figcap">
                     <div className="inner px-5">
