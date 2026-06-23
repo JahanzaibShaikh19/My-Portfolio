@@ -13,6 +13,8 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const socialImage = "/images/Profile.png";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
@@ -25,6 +27,10 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author, url: siteConfig.url }],
   creator: siteConfig.author,
   publisher: siteConfig.author,
+  icons: {
+    icon: socialImage,
+    apple: socialImage,
+  },
   alternates: {
     canonical: "/",
   },
@@ -48,9 +54,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/images/og-cover.png",
+        url: socialImage,
         width: 1200,
-        height: 630,
+        height: 1200,
         alt: "Jahanzaib Shaikh Portfolio",
       },
     ],
@@ -60,7 +66,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     creator: "@jahanzaib699",
-    images: ["/images/og-cover.png"],
+    images: [socialImage],
   },
   category: "technology",
 };
