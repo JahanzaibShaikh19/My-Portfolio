@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
 import { works } from "@/data/content";
 import { getPortfolioWork } from "@/data/projectOverrides";
+import { siteConfig } from "@/config/site";
 import WorkCarousel from "@/components/WorkCarousel";
 import ProjectImage from "@/components/ProjectImage";
 import Footer from "@/components/Footer";
@@ -17,8 +18,41 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const baseWork = works.find((w) => w.slug === params.slug);
   const work = baseWork ? getPortfolioWork(baseWork) : null;
+
+  if (!work) {
+    return {
+      title: "Project",
+    };
+  }
+
+  const path = `/work/${work.slug}`;
+
   return {
-    title: work ? `${work.title} — Jahanzaib` : "Project",
+    title: `${work.title} — Project Case Study`,
+    description: work.description,
+    alternates: {
+      canonical: path,
+    },
+    openGraph: {
+      title: `${work.title} — Jahanzaib Shaikh`,
+      description: work.description,
+      url: `${siteConfig.url}${path}`,
+      type: "article",
+      images: [
+        {
+          url: work.cover,
+          width: 1200,
+          height: 675,
+          alt: work.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${work.title} — Jahanzaib Shaikh`,
+      description: work.description,
+      images: [work.cover],
+    },
   };
 }
 
