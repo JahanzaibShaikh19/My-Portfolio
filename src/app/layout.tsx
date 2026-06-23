@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Preloader from "@/components/Preloader";
+import AmbientBackground from "@/components/AmbientBackground";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -47,9 +48,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className="font-sans antialiased selection:bg-accent selection:text-black">
         <Preloader />
-        <main>{children}</main>
+        <AmbientBackground />
+        {children}
       </body>
     </html>
   );
