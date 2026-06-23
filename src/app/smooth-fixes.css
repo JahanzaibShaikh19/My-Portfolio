@@ -1,0 +1,32 @@
+/* Final polish layer: reduce visual noise, prevent screenshot cropping, and smooth heavy motion. */
+.portfolio-item img {
+  object-fit: contain !important;
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.035) !important;
+}
+
+.swiper,
+.swiper-slide {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.section-panel,
+.interactive-card,
+.profile-shell {
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .aurora {
+    filter: blur(52px);
+    opacity: 0.2;
+  }
+
+  .cyber-grid,
+  .depth-rings {
+    opacity: 0.12;
+  }
+}
