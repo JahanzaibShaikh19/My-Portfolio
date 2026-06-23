@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: rgba(255, 255, 255, 0.03);
+  --bg-tertiary: rgba(255, 255, 255, 0.05);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --accent: #e6ff00;
+  --accent-hover: #ccff00;
+  --accent-subtle: rgba(230, 255, 0, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-hover: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] {
+  --bg-primary:    #FFFFFF;
+  --bg-secondary:  #F5F4EF;
+  --bg-tertiary:   #EFEDE6;
+  --text-primary:  #1A1916;
+  --text-secondary:#6B6860;
+  --text-muted:    #9B9890;
+  --border-subtle: #E8E6DF;
+  --border-default:#D4D2CB;
+  --accent:        #D97449;
+  --accent-hover:  #C4622E;
+  --accent-subtle: #FAF0EA;
+  --card-bg:       #FFFFFF;
+  --card-hover:    #FAFAF8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0s, color 0s;
+}
+
+/* ------------------------------------------------------------------
+ * Page wrapper — frosted glass card sitting on the dark background
+ * ---------------------------------------------------------------- */
+.page-wrapper {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 15px 15px 0 0;
+}
+
+/* ------------------------------------------------------------------
+ * Hero
+ * ---------------------------------------------------------------- */
+.profile-image {
+  border-radius: 15px 157px 15px 15px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+h1.hero-big {
+  font-size: 2.4rem;
+  line-height: 3rem;
+  font-weight: 500;
+}
+
+@media (min-width: 992px) {
+  h1.hero-big {
+    font-size: 3.2rem;
+    line-height: 4rem;
+  }
+}
+
+/* Typing element + blinking cursor */
+.typed-element {
+  color: var(--accent);
+}
+
+.typed-cursor {
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Scroll-reveal animations (replacement for jQuery scroll-animation)
+ * ---------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ------------------------------------------------------------------
+ * Timeline (resume)
+ * ---------------------------------------------------------------- */
+.timeline-outer {
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 28px 32px;
+  border-radius: 12px;
+}
+
+.timeline-outer:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transition: background 0.3s ease;
+}
+
+/* ------------------------------------------------------------------
+ * Skill bars
+ * ---------------------------------------------------------------- */
+.skill-bar-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 50px;
+  background: var(--accent);
+  width: 0%;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-bar-fill.in-view {
+  width: var(--target-width);
+}
+
+/* ------------------------------------------------------------------
+ * Portfolio grid
+ * ---------------------------------------------------------------- */
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  display: block;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.06);
+}
+
+.portfolio-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-default);
+}
+
+.portfolio-item .figcap {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-item:hover .figcap {
+  opacity: 1;
+}
+
+.portfolio-item .figcap .inner {
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .figcap .inner {
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------
+ * Marquee (client logos)
+ * ---------------------------------------------------------------- */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Swiper pagination override (testimonials)
+ * ---------------------------------------------------------------- */
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.3) !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--accent) !important;
+}
+
+/* ------------------------------------------------------------------
+ * Custom form inputs
+ * ---------------------------------------------------------------- */
+.contact-input {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.contact-input::placeholder {
+  color: var(--text-muted);
+}
+
+.contact-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--card-hover);
+}
+
+/* ------------------------------------------------------------------
+ * Underline title accent (used for "What I Do", "Skills", etc.)
+ * ---------------------------------------------------------------- */
+.underline-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 14px;
+}
+
+.underline-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------
+ * Zigzag divider (section title accent)
+ * ---------------------------------------------------------------- */
+.zigzag-line {
+  stroke: var(--accent);
+}
