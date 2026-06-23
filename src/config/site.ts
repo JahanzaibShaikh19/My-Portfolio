@@ -1,9 +1,27 @@
+const fallbackSiteUrl = "https://jahanzaibshaikh.vercel.app";
+
+function getSiteUrl() {
+  const rawUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
+  if (!rawUrl) return fallbackSiteUrl;
+
+  const normalizedUrl = rawUrl.startsWith("http://") || rawUrl.startsWith("https://")
+    ? rawUrl
+    : `https://${rawUrl}`;
+
+  try {
+    return new URL(normalizedUrl).origin;
+  } catch {
+    return fallbackSiteUrl;
+  }
+}
+
 export const siteConfig = {
   name: "Jahanzaib Shaikh Portfolio",
   title: "Jahanzaib Shaikh — Full Stack Engineer & AI Automation Developer",
   description:
     "Portfolio of Jahanzaib Shaikh, a full stack engineer building SaaS platforms, mobile apps, dashboards, AI automations, and production-ready web systems.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://jahanzaibshaikh.vercel.app",
+  url: getSiteUrl(),
   author: "Jahanzaib Shaikh",
   email: "jahanzaib@hyperlogic.studio",
   keywords: [
