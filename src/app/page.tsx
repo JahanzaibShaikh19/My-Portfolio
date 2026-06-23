@@ -7,15 +7,17 @@ import BlogGrid from "@/components/BlogGrid";
 import ClientLogos from "@/components/ClientLogos";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ExperienceDesignStrip from "@/components/ExperienceDesignStrip";
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative z-10 min-h-screen overflow-hidden">
       <Header />
 
-      {/* All sections flow vertically, full-width dark canvas */}
       <div className="max-w-[1200px] mx-auto">
         <Hero />
+
+        <ExperienceDesignStrip />
 
         <hr className="border-white/10 mx-6 md:mx-10 lg:mx-16" />
         <Testimonials />
