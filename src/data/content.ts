@@ -136,6 +136,9 @@ export const aiToolingSkills = [
   { label: "Git / DevOps", percent: 90 },
 ];
 
+const hyperlogicProjectPreview = (slug: string, width = 1600) =>
+  `https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.hyperlogic.studio%2Fprojects%2F${slug}?w=${width}`;
+
 export type WorkItem = {
   slug: string;
   title: string;
@@ -157,16 +160,18 @@ export const works: WorkItem[] = [
     slug: "myairboard",
     title: "MyAirBoard",
     category: "other",
-    categoryLabel: "Web Platform",
-    cover: "/images/works/work-1/01.jpg",
-    images: ["/images/works/work-1/01.jpg", "/images/works/work-1/02.jpg", "/images/works/work-1/03.jpg"],
+    categoryLabel: "Property SaaS",
+    cover: hyperlogicProjectPreview("airboard", 1600),
+    gridCover: hyperlogicProjectPreview("airboard", 900),
+    images: [hyperlogicProjectPreview("airboard", 1600)],
     client: "Property Management",
     description:
-      "A full stack property management platform built with PostgreSQL and Prisma, handling listings, tenants, and operations.",
+      "A full stack property management platform for bookings, properties, guests, expenses, P&L, and decision-making analytics.",
     details:
-      "MyAirBoard streamlines property management workflows — from listings and bookings to tenant communication and reporting. Built end to end with a Next.js frontend, a Node/Express API, and a PostgreSQL database modeled with Prisma for type-safe queries and migrations.",
-    tags: ["Next.js", "PostgreSQL", "Prisma", "Node.js"],
-    date: "2024",
+      "MyAirBoard streamlines short-term rental and property operations through a SaaS-style dashboard covering bookings, properties, guest management, analytics, expenses, and profit/loss visibility. The portfolio preview is pulled from the live HyperLogic Studio project page so the proof card visually matches the shipped case study.",
+    tags: ["SaaS", "Next.js", "Analytics", "Property Ops"],
+    date: "2025",
+    link: "https://www.hyperlogic.studio/projects/airboard",
   },
   {
     slug: "edris-lms",
@@ -264,15 +269,17 @@ export const works: WorkItem[] = [
     title: "Happiness Jar",
     category: "photography",
     categoryLabel: "Wellbeing App",
-    cover: "/images/works/work-9/01.jpg",
-    images: ["/images/works/work-9/01.jpg"],
+    cover: hyperlogicProjectPreview("happiness-jar", 1600),
+    gridCover: hyperlogicProjectPreview("happiness-jar", 900),
+    images: [hyperlogicProjectPreview("happiness-jar", 1600)],
     client: "Personal Project",
     description:
-      "A simple wellbeing app for journaling small moments of happiness over time.",
+      "A wellbeing product for saving positive moments, revisiting memories, and creating a simple emotional reflection loop.",
     details:
-      "Happiness Jar lets users quickly log small positive moments throughout their day, building a personal archive they can revisit — a small, focused product built end to end.",
-    tags: ["React", "Mobile-first"],
-    date: "2022",
+      "Happiness Jar turns the physical gratitude-jar concept into a digital wellbeing experience. Users can save positive notes, revisit them later, and build a small personal archive of meaningful moments. The portfolio preview is pulled from the live HyperLogic Studio project page so the visual proof stays aligned with the project case study.",
+    tags: ["Wellbeing", "React", "Mobile-first", "UX"],
+    date: "2025",
+    link: "https://www.hyperlogic.studio/projects/happiness-jar",
   },
 ];
 
