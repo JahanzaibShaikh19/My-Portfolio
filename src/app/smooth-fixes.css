@@ -1,32 +1,44 @@
 /* Final polish layer: reduce visual noise, prevent screenshot cropping, and smooth heavy motion. */
+html {
+  overflow-anchor: none;
+}
+
+.typed-element {
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
 .portfolio-item img {
   object-fit: contain !important;
+  image-rendering: auto;
 }
 
 .portfolio-item:hover img {
-  transform: scale(1.035) !important;
+  transform: scale(1.015) !important;
 }
 
 .swiper,
 .swiper-slide {
   transform: translateZ(0);
   backface-visibility: hidden;
+  contain: layout paint;
 }
 
 .section-panel,
 .interactive-card,
 .profile-shell {
-  will-change: transform;
+  transform: translateZ(0);
 }
 
 @media (max-width: 768px) {
   .aurora {
-    filter: blur(52px);
-    opacity: 0.2;
+    filter: blur(48px);
+    opacity: 0.16;
   }
 
   .cyber-grid,
-  .depth-rings {
-    opacity: 0.12;
+  .depth-rings,
+  .particle-field {
+    opacity: 0.08;
   }
 }

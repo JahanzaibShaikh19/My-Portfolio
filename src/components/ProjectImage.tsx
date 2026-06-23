@@ -19,7 +19,9 @@ export default function ProjectImage({
   placeholder,
   blurDataURL,
 }: ProjectImageProps) {
-  if (src.startsWith("data:")) {
+  const usePlainImage = src.startsWith("data:") || src.endsWith(".svg");
+
+  if (usePlainImage) {
     return (
       <img
         src={src}
