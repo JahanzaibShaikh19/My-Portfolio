@@ -1,4 +1,4 @@
-/* Final polish layer: reduce visual noise, prevent screenshot cropping, and smooth heavy motion. */
+/* Final polish layer: loaders, faster perceived rendering, and smooth motion. */
 html {
   overflow-anchor: none;
 }
@@ -14,7 +14,7 @@ html {
 }
 
 .portfolio-item:hover img {
-  transform: scale(1.015) !important;
+  transform: scale(1.012) !important;
 }
 
 .swiper,
@@ -30,15 +30,78 @@ html {
   transform: translateZ(0);
 }
 
+.image-skeleton,
+.skeleton-block,
+.skeleton-card,
+.skeleton-line,
+.skeleton-pill {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.skeleton-card {
+  border-radius: 24px;
+}
+
+.skeleton-line,
+.skeleton-pill {
+  border-radius: 999px;
+}
+
+.image-skeleton::after,
+.skeleton-block::after,
+.skeleton-card::after,
+.skeleton-line::after,
+.skeleton-pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+  animation: skeletonShimmer 1.25s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@supports (content-visibility: auto) {
+  section:not(#home) {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 760px;
+  }
+}
+
 @media (max-width: 768px) {
   .aurora {
-    filter: blur(48px);
-    opacity: 0.16;
+    filter: blur(46px);
+    opacity: 0.14;
   }
 
   .cyber-grid,
   .depth-rings,
   .particle-field {
-    opacity: 0.08;
+    opacity: 0.07;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-skeleton::after,
+  .skeleton-block::after,
+  .skeleton-card::after,
+  .skeleton-line::after,
+  .skeleton-pill::after {
+    animation: none;
   }
 }

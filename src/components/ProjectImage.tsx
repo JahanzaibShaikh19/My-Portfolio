@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 type ProjectImageProps = {
@@ -19,30 +22,34 @@ export default function ProjectImage({
   placeholder,
   blurDataURL,
 }: ProjectImageProps) {
+  const [loaded, setLoaded] = useState(false);
   const usePlainImage = src.startsWith("data:") || src.endsWith(".svg");
 
-  if (usePlainImage) {
-    return (
-      <img
-        src={src}
-        alt={alt}
-        className={`absolute inset-0 h-full w-full ${className}`}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-      />
-    );
-  }
-
   return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className={className}
-      sizes={sizes}
-      priority={priority}
-      placeholder={placeholder}
-      blurDataURL={blurDataURL}
-    />
+    <>
+      {!loaded && <span className="image-skeleton" aria-hidden="true" />}
+      {usePlainImage ? (
+        <img
+          src={src}
+          alt={alt}
+          className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+        />
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={`transition-opacity duration-500 ${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+          sizes={sizes}
+          priority={priority}
+          placeholder={placeholder}
+          blurDataURL={blurDataURL}
+          onLoad={() => setLoaded(true)}
+        />
+      )}
+    </>
   );
 }

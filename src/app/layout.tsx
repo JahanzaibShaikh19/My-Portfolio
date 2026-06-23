@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import "./smooth-fixes.css";
 import Preloader from "@/components/Preloader";
 import AmbientBackground from "@/components/AmbientBackground";
+import { siteConfig } from "@/config/site";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,16 +13,94 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const socialImage = "/images/Profile.png";
+
 export const metadata: Metadata = {
-  title: "Jahanzaib — Full Stack Engineer",
-  description:
-    "Full Stack Engineer and co-founder of HyperLogic Studio. I build web platforms, AI tools, and automation systems.",
-  openGraph: {
-    title: "Jahanzaib — Full Stack Engineer",
-    description:
-      "Full Stack Engineer and co-founder of HyperLogic Studio. I build web platforms, AI tools, and automation systems.",
-    type: "website",
+  metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
+  title: {
+    default: siteConfig.title,
+    template: "%s | Jahanzaib Shaikh",
   },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.author, url: siteConfig.url }],
+  creator: siteConfig.author,
+  publisher: siteConfig.author,
+  icons: {
+    icon: socialImage,
+    apple: socialImage,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [
+      {
+        url: socialImage,
+        width: 1200,
+        height: 1200,
+        alt: "Jahanzaib Shaikh Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    creator: "@jahanzaib699",
+    images: [socialImage],
+  },
+  category: "technology",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#000000",
+  colorScheme: "dark light",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Jahanzaib Shaikh",
+  url: siteConfig.url,
+  jobTitle: "Full Stack Engineer and AI Automation Developer",
+  email: siteConfig.email,
+  sameAs: [
+    siteConfig.links.github,
+    siteConfig.links.linkedin,
+    siteConfig.links.twitter,
+    siteConfig.links.upwork,
+  ],
+  knowsAbout: [
+    "Next.js",
+    "React",
+    "Node.js",
+    "SaaS Development",
+    "AI Automation",
+    "Mobile Apps",
+    "Dashboard Design",
+  ],
 };
 
 export default function RootLayout({
@@ -47,6 +126,10 @@ export default function RootLayout({
               })();
             `,
           }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="font-sans antialiased selection:bg-accent selection:text-black">
