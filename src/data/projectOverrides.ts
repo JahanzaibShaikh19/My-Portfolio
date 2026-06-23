@@ -1,7 +1,8 @@
 import type { WorkItem } from "./content";
+import { airboardPreviewUrl } from "./airboardPreviewUrl";
 
 const proofImages = {
-  airboard: "/images/works/proofs/myairboard-proof.svg",
+  airboard: airboardPreviewUrl,
   happinessJar: "/images/works/proofs/happiness-jar-proof.svg",
 } as const;
 
@@ -27,7 +28,7 @@ const overrides: Record<string, Partial<WorkItem>> = {
     description:
       "A calm wellbeing experience for collecting memories, calming thoughts, and carrying happiness wherever users go.",
     details:
-      "Happiness Jar turns the physical gratitude-jar idea into a simple digital wellbeing experience. Users can save positive memories, revisit them later, and build a personal archive of meaningful moments. The interface direction is calm, dark, and low-distraction so the emotional action stays simple.",
+      "Happiness Jar is a simple digital wellbeing experience. Users can save positive memories, revisit them later, and build a personal archive of meaningful moments. The interface direction is calm, dark, and low-distraction so the emotional action stays simple.",
     tags: ["Wellbeing", "Mobile-first", "Emotional UX", "React"],
     date: "2025",
     link: "",
