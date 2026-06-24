@@ -73,11 +73,17 @@ export default function Header() {
   ) => {
     e.preventDefault();
     const el = document.getElementById(id);
+
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(id);
+      setMenuOpen(false);
+      return;
     }
+
     setActiveSection(id);
     setMenuOpen(false);
+    window.location.assign(`/#${id}`);
   };
 
   const toggleTheme = () => {
@@ -98,7 +104,7 @@ export default function Header() {
 
       <header className="fixed top-5 left-1/2 z-50 flex w-[calc(100%-32px)] max-w-[1120px] -translate-x-1/2 items-center justify-between rounded-full border border-white/10 bg-black/35 px-3 py-2 shadow-[0_18px_60px_rgba(0,0,0,.28)] backdrop-blur-2xl md:top-6 md:px-4">
         <a
-          href="#home"
+          href="/#home"
           onClick={(e) => handleNavClick(e, "home")}
           className="group flex items-center gap-3 rounded-full px-3 py-2 transition-transform hover:scale-[1.02]"
           aria-label="Go to home"
@@ -116,7 +122,7 @@ export default function Header() {
             return (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={`/#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
                 className={`group flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-300 ${
                   isActive
@@ -175,7 +181,7 @@ export default function Header() {
               }}
             >
               <a
-                href={`#${item.id}`}
+                href={`/#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
                 className={`text-4xl font-bold tracking-tight transition-colors duration-200 md:text-6xl ${
                   activeSection === item.id
