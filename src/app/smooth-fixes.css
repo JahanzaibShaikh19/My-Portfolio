@@ -1,21 +1,21 @@
 /* Final polish layer: loaders, faster perceived rendering, cursor UX, and smooth motion. */
 html {
   overflow-anchor: none;
-  --cursor-ring-color: rgba(230, 255, 0, 0.68);
+  --cursor-ring-color: rgba(230, 255, 0, 0.62);
   --cursor-dot-color: #e6ff00;
-  --cursor-fill-color: rgba(230, 255, 0, 0.08);
+  --cursor-fill-color: rgba(230, 255, 0, 0.055);
 }
 
 html[data-theme="light"] {
-  --cursor-ring-color: rgba(15, 23, 42, 0.58);
+  --cursor-ring-color: rgba(15, 23, 42, 0.52);
   --cursor-dot-color: #111827;
-  --cursor-fill-color: rgba(17, 24, 39, 0.06);
+  --cursor-fill-color: rgba(17, 24, 39, 0.045);
 }
 
 html[data-theme="dark"] {
-  --cursor-ring-color: rgba(230, 255, 0, 0.72);
+  --cursor-ring-color: rgba(230, 255, 0, 0.64);
   --cursor-dot-color: #e6ff00;
-  --cursor-fill-color: rgba(230, 255, 0, 0.08);
+  --cursor-fill-color: rgba(230, 255, 0, 0.055);
 }
 
 .typed-element {
@@ -34,6 +34,12 @@ html[data-theme="dark"] {
   html.custom-cursor-active .filter-pill {
     cursor: none;
   }
+
+  html.custom-cursor-active input,
+  html.custom-cursor-active textarea,
+  html.custom-cursor-active select {
+    cursor: auto;
+  }
 }
 
 .custom-cursor-ring,
@@ -44,37 +50,31 @@ html[data-theme="dark"] {
   z-index: 100000;
   pointer-events: none;
   opacity: 0;
-  will-change: transform, opacity, width, height, border-color, background;
+  will-change: transform, opacity, width, height;
+  transform: translate3d(-100px, -100px, 0);
 }
 
 .custom-cursor-ring {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border: 1px solid var(--cursor-ring-color);
   border-radius: 999px;
   background: var(--cursor-fill-color);
-  box-shadow: 0 0 26px rgba(230, 255, 0, 0.11);
-  backdrop-filter: blur(1px);
+  box-shadow: 0 0 14px rgba(230, 255, 0, 0.07);
   transition:
-    opacity 180ms ease,
-    width 320ms cubic-bezier(.22, 1, .36, 1),
-    height 320ms cubic-bezier(.22, 1, .36, 1),
-    border-color 220ms ease,
-    background 220ms ease,
-    box-shadow 220ms ease;
+    opacity 140ms ease,
+    width 180ms cubic-bezier(.22, 1, .36, 1),
+    height 180ms cubic-bezier(.22, 1, .36, 1),
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .custom-cursor-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 999px;
   background: var(--cursor-dot-color);
-  box-shadow: 0 0 16px rgba(230, 255, 0, 0.38);
-  transition:
-    opacity 160ms ease,
-    width 240ms cubic-bezier(.22, 1, .36, 1),
-    height 240ms cubic-bezier(.22, 1, .36, 1),
-    background 220ms ease;
+  transition: opacity 120ms ease, background 160ms ease;
 }
 
 html[data-cursor-visible="true"] .custom-cursor-ring,
@@ -83,27 +83,24 @@ html[data-cursor-visible="true"] .custom-cursor-dot {
 }
 
 html[data-cursor-hover="true"] .custom-cursor-ring {
-  width: 68px;
-  height: 68px;
+  width: 58px;
+  height: 58px;
   border-color: var(--cursor-dot-color);
-  background: rgba(230, 255, 0, 0.12);
-  box-shadow: 0 0 34px rgba(230, 255, 0, 0.18);
+  background: rgba(230, 255, 0, 0.085);
 }
 
 html[data-theme="light"][data-cursor-hover="true"] .custom-cursor-ring {
-  background: rgba(17, 24, 39, 0.08);
-  box-shadow: 0 0 24px rgba(15, 23, 42, 0.12);
+  background: rgba(17, 24, 39, 0.06);
 }
 
 html[data-cursor-hover="true"] .custom-cursor-dot {
-  width: 4px;
-  height: 4px;
+  opacity: 0.78;
 }
 
 html[data-cursor-pressed="true"] .custom-cursor-ring {
-  width: 28px;
-  height: 28px;
-  background: rgba(230, 255, 0, 0.18);
+  width: 26px;
+  height: 26px;
+  background: rgba(230, 255, 0, 0.14);
 }
 
 .portfolio-item img {
