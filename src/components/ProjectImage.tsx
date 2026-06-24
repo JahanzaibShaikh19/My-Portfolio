@@ -24,6 +24,7 @@ export default function ProjectImage({
 }: ProjectImageProps) {
   const [loaded, setLoaded] = useState(false);
   const usePlainImage = src.startsWith("data:") || src.endsWith(".svg");
+  const visibilityClass = loaded ? "opacity-100" : "opacity-0";
 
   return (
     <>
@@ -32,22 +33,25 @@ export default function ProjectImage({
         <img
           src={src}
           alt={alt}
-          className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 h-full w-full transition-opacity duration-300 ${className} ${visibilityClass}`}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
           onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
         />
       ) : (
         <Image
           src={src}
           alt={alt}
           fill
-          className={`transition-opacity duration-500 ${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+          className={`transition-opacity duration-300 ${className} ${visibilityClass}`}
           sizes={sizes}
           priority={priority}
           placeholder={placeholder}
           blurDataURL={blurDataURL}
           onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
         />
       )}
     </>
