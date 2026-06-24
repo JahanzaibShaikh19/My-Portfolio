@@ -40,7 +40,7 @@ export default function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-10 lg:gap-16 items-start">
         <RevealOnScroll variant="left">
           <aside className="profile-shell sticky top-28 flex flex-col gap-6">
-            <div className="profile-image perspective-card w-full aspect-[4/5] relative">
+            <div className="profile-image perspective-card group w-full aspect-[4/5] relative overflow-hidden">
               <Image
                 src={personal.profileImage}
                 alt={personal.name}
@@ -49,7 +49,7 @@ export default function Hero() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 340px"
               />
-              <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur-xl">
+              <div className="pointer-events-none absolute inset-x-4 bottom-4 translate-y-4 rounded-2xl border border-white/10 bg-black/40 p-4 opacity-0 backdrop-blur-xl transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 dark:bg-black/40">
                 <span className="trust-chip">Available for selected builds</span>
                 <p className="mt-3 !text-xs !leading-relaxed !text-white/75">
                   I design systems that reduce founder workload, improve decision
