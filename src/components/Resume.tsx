@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   workExperience,
   education,
@@ -40,7 +41,11 @@ export default function Resume() {
   return (
     <section id="resume" className="px-6 md:px-10 lg:px-16 py-16 scroll-mt-28">
       <RevealOnScroll variant="scale">
-        <SectionTitle>My Resume</SectionTitle>
+        <SectionTitle>
+          <Link href="/resume" className="hover:text-accent transition-colors">
+            My Resume
+          </Link>
+        </SectionTitle>
       </RevealOnScroll>
 
       <RevealOnScroll>
@@ -49,6 +54,12 @@ export default function Resume() {
             <div>
               <span className="trust-chip mb-3">Execution layer</span>
               <h3 className="text-lg font-semibold">From idea to shipped product</h3>
+              <Link
+                href="/resume"
+                className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline"
+              >
+                Open polished resume →
+              </Link>
             </div>
             <p className="!text-sm !leading-relaxed !text-text-secondary md:col-span-2">
               The resume is structured for fast scanning: role proof first, education next,
