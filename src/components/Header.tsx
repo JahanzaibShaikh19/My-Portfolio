@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BriefcaseBusiness,
   Home,
@@ -24,10 +24,10 @@ const NAV_ITEMS = [
 ];
 
 export default function Header() {
+  const progressRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) =>
@@ -36,13 +36,15 @@ export default function Header() {
 
     if (sections.length === 0) return;
 
+    let currentSection = "home";
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+        for (const entry of entries) {
+          if (entry.isIntersecting && currentSection !== entry.target.id) {
+            currentSection = entry.target.id;
             setActiveSection(entry.target.id);
           }
-        });
+        }
       },
       { rootMargin: "-38% 0px -58% 0px", threshold: 0 }
     );
@@ -56,15 +58,26 @@ export default function Header() {
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
 
+    let frame = 0;
     const updateProgress = () => {
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0);
+      frame = 0;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const value = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      progressRef.current?.style.setProperty("transform", `scaleX(${value})`);
+    };
+
+    const requestProgress = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateProgress);
     };
 
     updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    return () => window.removeEventListener("scroll", updateProgress);
+    window.addEventListener("scroll", requestProgress, { passive: true });
+    window.addEventListener("resize", requestProgress, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestProgress);
+      window.removeEventListener("resize", requestProgress);
+    };
   }, []);
 
   const handleNavClick = (
@@ -97,8 +110,8 @@ export default function Header() {
     <>
       <div className="fixed left-0 top-0 z-[60] h-1 w-full bg-white/5">
         <div
-          className="h-full bg-accent shadow-[0_0_18px_var(--accent)] transition-[width] duration-150"
-          style={{ width: `${progress}%` }}
+          ref={progressRef}
+          className="h-full origin-left scale-x-0 bg-accent shadow-[0_0_18px_var(--accent)] will-change-transform"
         />
       </div>
 
