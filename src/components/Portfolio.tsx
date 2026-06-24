@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { works } from "@/data/content";
+import { works, type WorkItem } from "@/data/content";
+import { extraWorks } from "@/data/extraWorks";
 import { getPortfolioWorks } from "@/data/projectOverrides";
 import SectionTitle from "./SectionTitle";
 import RevealOnScroll from "./RevealOnScroll";
@@ -11,29 +12,29 @@ import ProjectImage from "./ProjectImage";
 
 type FilterKey = "all" | "platform" | "ai" | "mobile";
 
-const FILTERS: { key: FilterKey; label: string; matcher?: (work: (typeof works)[number]) => boolean }[] = [
+const FILTERS: { key: FilterKey; label: string; matcher?: (work: WorkItem) => boolean }[] = [
   { key: "all", label: "All Proof" },
   {
     key: "platform",
     label: "Platforms",
     matcher: (work) =>
-      /platform|lms|web|property|energy|saas/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
+      /platform|lms|web|property|energy|saas|product/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
   },
   {
     key: "ai",
     label: "AI / Automation",
     matcher: (work) =>
-      /ai|automation|bot|signal|n8n/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
+      /ai|automation|bot|signal|n8n|data/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
   },
   {
     key: "mobile",
     label: "Mobile",
     matcher: (work) =>
-      /mobile|react native|app|wellbeing/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
+      /mobile|react native|app|wellbeing|extension/i.test(`${work.categoryLabel} ${work.title} ${work.tags.join(" ")}`),
   },
 ];
 
-const portfolioWorks = getPortfolioWorks(works);
+const portfolioWorks = getPortfolioWorks([...extraWorks, ...works]);
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
