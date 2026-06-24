@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
 import { works } from "@/data/content";
+import { extraWorks } from "@/data/extraWorks";
 import { getPortfolioWork } from "@/data/projectOverrides";
 import { siteConfig } from "@/config/site";
 import WorkCarousel from "@/components/WorkCarousel";
@@ -11,12 +12,14 @@ import Header from "@/components/Header";
 
 type Props = { params: { slug: string } };
 
+const portfolioItems = [...extraWorks, ...works];
+
 export function generateStaticParams() {
-  return works.map((w) => ({ slug: w.slug }));
+  return portfolioItems.map((w) => ({ slug: w.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
-  const baseWork = works.find((w) => w.slug === params.slug);
+  const baseWork = portfolioItems.find((w) => w.slug === params.slug);
   const work = baseWork ? getPortfolioWork(baseWork) : null;
 
   if (!work) {
@@ -57,12 +60,12 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function WorkPage({ params }: Props) {
-  const index = works.findIndex((w) => w.slug === params.slug);
+  const index = portfolioItems.findIndex((w) => w.slug === params.slug);
   if (index === -1) notFound();
 
-  const work = getPortfolioWork(works[index]);
-  const prevWork = works[index - 1] ?? null;
-  const nextWork = works[index + 1] ?? null;
+  const work = getPortfolioWork(portfolioItems[index]);
+  const prevWork = portfolioItems[index - 1] ?? null;
+  const nextWork = portfolioItems[index + 1] ?? null;
 
   return (
     <main className="relative z-10">
