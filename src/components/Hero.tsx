@@ -19,7 +19,7 @@ import { personal, services, socialLinks } from "@/data/content";
 import TypedText from "./TypedText";
 import RevealOnScroll from "./RevealOnScroll";
 
-const profilePortrait = "https://avatars.githubusercontent.com/u/83217710?s=1000&v=4";
+const profilePortrait = "/images/profile/jahanzaib-profile.svg";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code2,
