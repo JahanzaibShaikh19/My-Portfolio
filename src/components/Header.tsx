@@ -100,11 +100,12 @@ export default function Header() {
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, "home")}
-          className="flex items-center gap-3 rounded-full px-2 py-1 transition-transform hover:scale-[1.02]"
+          className="group flex items-center gap-3 rounded-full px-2 py-1 transition-transform hover:scale-[1.02]"
           aria-label="Go to home"
         >
-          <span className="relative grid h-9 w-9 place-items-center rounded-full bg-accent text-sm font-bold text-black shadow-[0_0_28px_rgba(230,255,0,.34)]">
-            JS
+          <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-2xl border border-white/15 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,.95),rgba(230,255,0,.78)_30%,rgba(0,0,0,.88)_72%)] text-[15px] font-black tracking-[-0.08em] text-black shadow-[0_0_28px_rgba(230,255,0,.25)] transition-all duration-300 group-hover:rotate-[-4deg] group-hover:shadow-[0_0_34px_rgba(230,255,0,.36)]">
+            <span className="relative z-10 font-black italic leading-none">JS</span>
+            <span className="absolute inset-px rounded-[0.95rem] bg-gradient-to-br from-white/35 via-transparent to-black/30" />
             <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-black bg-emerald-400" />
           </span>
           <span className="hidden text-sm font-semibold tracking-tight text-text-primary sm:block">
