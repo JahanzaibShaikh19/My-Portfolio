@@ -15,6 +15,7 @@ const poppins = Poppins({
 });
 
 const socialImage = "/images/Profile.png";
+const faviconImage = "/icon.svg";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -29,8 +30,9 @@ export const metadata: Metadata = {
   creator: siteConfig.author,
   publisher: siteConfig.author,
   icons: {
-    icon: socialImage,
-    apple: socialImage,
+    icon: faviconImage,
+    shortcut: faviconImage,
+    apple: faviconImage,
   },
   alternates: {
     canonical: "/",
