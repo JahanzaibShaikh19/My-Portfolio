@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { works, blogPosts } from "@/data/content";
+import { extraWorks } from "@/data/extraWorks";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const portfolioItems = [...extraWorks, ...works];
 
   const staticRoutes = [
     {
@@ -20,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const workRoutes = works.map((work) => ({
+  const workRoutes = portfolioItems.map((work) => ({
     url: `${siteConfig.url}/work/${work.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
