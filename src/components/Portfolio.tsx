@@ -80,7 +80,7 @@ export default function Portfolio() {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7"
       >
         <AnimatePresence mode="popLayout">
-          {filteredWorks.map((work, index) => (
+          {filteredWorks.map((work) => (
             <motion.div
               key={work.slug}
               layout
@@ -93,7 +93,6 @@ export default function Portfolio() {
                 <Link
                   href={`/work/${work.slug}`}
                   className="portfolio-item portfolio-glass-card group block h-full overflow-hidden rounded-[28px] relative"
-                  style={{ ["--card-index" as string]: index % 6 }}
                 >
                   <div className="portfolio-card-light" aria-hidden="true" />
                   <div className="portfolio-card-grid" aria-hidden="true" />
