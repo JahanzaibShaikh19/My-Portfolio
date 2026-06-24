@@ -19,6 +19,8 @@ import { personal, services, socialLinks } from "@/data/content";
 import TypedText from "./TypedText";
 import RevealOnScroll from "./RevealOnScroll";
 
+const profilePortrait = "https://avatars.githubusercontent.com/u/83217710?s=1000&v=4";
+
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code2,
   smartphone: Smartphone,
@@ -42,7 +44,7 @@ export default function Hero() {
           <aside className="profile-shell sticky top-28 flex flex-col gap-6">
             <div className="profile-image perspective-card group w-full aspect-[4/5] relative overflow-hidden">
               <Image
-                src={personal.profileImage}
+                src={profilePortrait}
                 alt={personal.name}
                 fill
                 priority
