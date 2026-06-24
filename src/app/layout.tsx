@@ -15,7 +15,7 @@ const poppins = Poppins({
 });
 
 const socialImage = "/images/Profile.png";
-const faviconImage = "/icon.svg";
+const faviconImage = "/icon";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
