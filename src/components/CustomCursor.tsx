@@ -31,73 +31,88 @@ export default function CustomCursor() {
     let targetY = window.innerHeight / 2;
     let currentX = targetX;
     let currentY = targetY;
-    let lastX = targetX;
-    let lastY = targetY;
+    let frame = 0;
     let visible = false;
     let hovering = false;
-    let frame = 0;
+    let pressed = false;
 
     root.classList.add("custom-cursor-active");
 
-    const setVisible = (next: boolean) => {
+    const setOpacity = (next: boolean) => {
       if (visible === next) return;
       visible = next;
-      root.setAttribute("data-cursor-visible", next ? "true" : "false");
+      dot.style.opacity = next ? "1" : "0";
+      ring.style.opacity = next ? "1" : "0";
     };
 
-    const setHovering = (next: boolean) => {
-      if (hovering === next) return;
-      hovering = next;
-      root.setAttribute("data-cursor-hover", next ? "true" : "false");
-    };
+    const render = () => {
+      currentX += (targetX - currentX) * 0.58;
+      currentY += (targetY - currentY) * 0.58;
 
-    const animate = () => {
-      currentX += (targetX - currentX) * 0.34;
-      currentY += (targetY - currentY) * 0.34;
-
-      const velocityX = currentX - lastX;
-      const velocityY = currentY - lastY;
-      const speed = Math.min(Math.hypot(velocityX, velocityY) / 52, 0.22);
-      const angle = Math.atan2(velocityY, velocityX || 0.001);
-
+      const scale = pressed ? 0.82 : hovering ? 1.65 : 1;
       dot.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
-      ring.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%) rotate(${angle}rad) scale(${1 + speed}, ${1 - speed * 0.18})`;
+      ring.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%) scale(${scale})`;
 
-      lastX = currentX;
-      lastY = currentY;
-      frame = window.requestAnimationFrame(animate);
+      const distance = Math.abs(targetX - currentX) + Math.abs(targetY - currentY);
+      if (distance > 0.12 || pressed || hovering) {
+        frame = window.requestAnimationFrame(render);
+      } else {
+        frame = 0;
+      }
+    };
+
+    const startLoop = () => {
+      if (!frame) frame = window.requestAnimationFrame(render);
     };
 
     const handlePointerMove = (event: PointerEvent) => {
       targetX = event.clientX;
       targetY = event.clientY;
-      setVisible(true);
-
-      const target = event.target as HTMLElement | null;
-      setHovering(Boolean(target?.closest(INTERACTIVE_SELECTOR)));
+      setOpacity(true);
+      startLoop();
     };
 
-    const handlePointerDown = () => root.setAttribute("data-cursor-pressed", "true");
-    const handlePointerUp = () => root.setAttribute("data-cursor-pressed", "false");
+    const handlePointerOver = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      hovering = Boolean(target?.closest(INTERACTIVE_SELECTOR));
+      startLoop();
+    };
+
+    const handlePointerOut = (event: PointerEvent) => {
+      const target = event.relatedTarget as HTMLElement | null;
+      hovering = Boolean(target?.closest(INTERACTIVE_SELECTOR));
+      startLoop();
+    };
+
+    const handlePointerDown = () => {
+      pressed = true;
+      startLoop();
+    };
+
+    const handlePointerUp = () => {
+      pressed = false;
+      startLoop();
+    };
+
     const handlePointerLeave = () => {
-      setVisible(false);
-      setHovering(false);
+      setOpacity(false);
+      hovering = false;
+      pressed = false;
     };
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerover", handlePointerOver, { passive: true });
+    window.addEventListener("pointerout", handlePointerOut, { passive: true });
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("pointerup", handlePointerUp, { passive: true });
     window.addEventListener("pointerleave", handlePointerLeave, { passive: true });
 
-    frame = window.requestAnimationFrame(animate);
-
     return () => {
       root.classList.remove("custom-cursor-active");
-      root.removeAttribute("data-cursor-hover");
-      root.removeAttribute("data-cursor-visible");
-      root.removeAttribute("data-cursor-pressed");
-      window.cancelAnimationFrame(frame);
+      if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerover", handlePointerOver);
+      window.removeEventListener("pointerout", handlePointerOut);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
       window.removeEventListener("pointerleave", handlePointerLeave);
