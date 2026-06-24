@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { works, type WorkItem } from "@/data/content";
 import { extraWorks } from "@/data/extraWorks";
 import { getPortfolioWorks } from "@/data/projectOverrides";
@@ -76,47 +77,64 @@ export default function Portfolio() {
 
       <motion.div
         layout
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7"
       >
         <AnimatePresence mode="popLayout">
-          {filteredWorks.map((work) => (
+          {filteredWorks.map((work, index) => (
             <motion.div
               key={work.slug}
               layout
               initial={{ opacity: 0, y: 18, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.96 }}
-              transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
             >
               <article className="h-full">
                 <Link
                   href={`/work/${work.slug}`}
-                  className="portfolio-item interactive-card aspect-[16/9] block h-full rounded-2xl overflow-hidden bg-surface relative"
+                  className="portfolio-item portfolio-glass-card group block h-full overflow-hidden rounded-[28px] relative"
+                  style={{ ["--card-index" as string]: index % 6 }}
                 >
-                  <ProjectImage
-                    src={work.gridCover ?? work.cover}
-                    alt={work.title}
-                    className="object-contain transition-opacity duration-300 p-2"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    placeholder="blur"
-                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM4ODgiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+"
-                  />
-                  <div className="figcap">
-                    <div className="inner px-5">
-                      <span className="text-xs uppercase tracking-widest text-accent block mb-2">
-                        {work.categoryLabel}
-                      </span>
-                      <h3 className="!text-xl !leading-tight !m-0">
-                        {work.title}
-                      </h3>
-                      <div className="mt-4 flex flex-wrap justify-center gap-2">
-                        {work.tags.slice(0, 3).map((tag) => (
-                          <span key={tag} className="rounded-full bg-white/10 px-3 py-1 text-[10px] text-white/80">
-                            {tag}
-                          </span>
-                        ))}
+                  <div className="portfolio-card-light" aria-hidden="true" />
+                  <div className="portfolio-card-grid" aria-hidden="true" />
+
+                  <div className="portfolio-shot-wrap">
+                    <ProjectImage
+                      src={work.gridCover ?? work.cover}
+                      alt={work.title}
+                      className="portfolio-shot object-contain p-3 md:p-4"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM4ODgiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+"
+                    />
+                    <span className="portfolio-shot-vignette" aria-hidden="true" />
+                  </div>
+
+                  <div className="portfolio-card-body">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="min-w-0">
+                        <span className="portfolio-kicker">{work.categoryLabel}</span>
+                        <h3 className="portfolio-card-title">{work.title}</h3>
                       </div>
+                      <span className="portfolio-open-icon" aria-hidden="true">
+                        <ArrowUpRight className="h-4 w-4" />
+                      </span>
                     </div>
+
+                    <p className="portfolio-card-copy">{work.description}</p>
+
+                    <div className="portfolio-tag-row">
+                      {work.tags.slice(0, 3).map((tag) => (
+                        <span key={tag} className="portfolio-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="portfolio-hover-cta" aria-hidden="true">
+                    <span>Open case study</span>
+                    <ArrowUpRight className="h-4 w-4" />
                   </div>
                 </Link>
               </article>
