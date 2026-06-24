@@ -4,6 +4,7 @@ import "./globals.css";
 import "./smooth-fixes.css";
 import Preloader from "@/components/Preloader";
 import AmbientBackground from "@/components/AmbientBackground";
+import CustomCursor from "@/components/CustomCursor";
 import { siteConfig } from "@/config/site";
 
 const poppins = Poppins({
@@ -135,6 +136,7 @@ export default function RootLayout({
       <body className="font-sans antialiased selection:bg-accent selection:text-black">
         <Preloader />
         <AmbientBackground />
+        <CustomCursor />
         {children}
       </body>
     </html>

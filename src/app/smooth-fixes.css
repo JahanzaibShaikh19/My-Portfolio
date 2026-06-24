@@ -1,11 +1,109 @@
-/* Final polish layer: loaders, faster perceived rendering, and smooth motion. */
+/* Final polish layer: loaders, faster perceived rendering, cursor UX, and smooth motion. */
 html {
   overflow-anchor: none;
+  --cursor-ring-color: rgba(230, 255, 0, 0.68);
+  --cursor-dot-color: #e6ff00;
+  --cursor-fill-color: rgba(230, 255, 0, 0.08);
+}
+
+html[data-theme="light"] {
+  --cursor-ring-color: rgba(15, 23, 42, 0.58);
+  --cursor-dot-color: #111827;
+  --cursor-fill-color: rgba(17, 24, 39, 0.06);
+}
+
+html[data-theme="dark"] {
+  --cursor-ring-color: rgba(230, 255, 0, 0.72);
+  --cursor-dot-color: #e6ff00;
+  --cursor-fill-color: rgba(230, 255, 0, 0.08);
 }
 
 .typed-element {
   white-space: nowrap;
   vertical-align: baseline;
+}
+
+@media (pointer: fine) {
+  html.custom-cursor-active,
+  html.custom-cursor-active body,
+  html.custom-cursor-active a,
+  html.custom-cursor-active button,
+  html.custom-cursor-active [role="button"],
+  html.custom-cursor-active .interactive-card,
+  html.custom-cursor-active .portfolio-item,
+  html.custom-cursor-active .filter-pill {
+    cursor: none;
+  }
+}
+
+.custom-cursor-ring,
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity, width, height, border-color, background;
+}
+
+.custom-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--cursor-ring-color);
+  border-radius: 999px;
+  background: var(--cursor-fill-color);
+  box-shadow: 0 0 26px rgba(230, 255, 0, 0.11);
+  backdrop-filter: blur(1px);
+  transition:
+    opacity 180ms ease,
+    width 320ms cubic-bezier(.22, 1, .36, 1),
+    height 320ms cubic-bezier(.22, 1, .36, 1),
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cursor-dot-color);
+  box-shadow: 0 0 16px rgba(230, 255, 0, 0.38);
+  transition:
+    opacity 160ms ease,
+    width 240ms cubic-bezier(.22, 1, .36, 1),
+    height 240ms cubic-bezier(.22, 1, .36, 1),
+    background 220ms ease;
+}
+
+html[data-cursor-visible="true"] .custom-cursor-ring,
+html[data-cursor-visible="true"] .custom-cursor-dot {
+  opacity: 1;
+}
+
+html[data-cursor-hover="true"] .custom-cursor-ring {
+  width: 68px;
+  height: 68px;
+  border-color: var(--cursor-dot-color);
+  background: rgba(230, 255, 0, 0.12);
+  box-shadow: 0 0 34px rgba(230, 255, 0, 0.18);
+}
+
+html[data-theme="light"][data-cursor-hover="true"] .custom-cursor-ring {
+  background: rgba(17, 24, 39, 0.08);
+  box-shadow: 0 0 24px rgba(15, 23, 42, 0.12);
+}
+
+html[data-cursor-hover="true"] .custom-cursor-dot {
+  width: 4px;
+  height: 4px;
+}
+
+html[data-cursor-pressed="true"] .custom-cursor-ring {
+  width: 28px;
+  height: 28px;
+  background: rgba(230, 255, 0, 0.18);
 }
 
 .portfolio-item img {
@@ -97,6 +195,11 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .custom-cursor-ring,
+  .custom-cursor-dot {
+    display: none;
+  }
+
   .image-skeleton::after,
   .skeleton-block::after,
   .skeleton-card::after,
