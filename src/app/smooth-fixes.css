@@ -1,13 +1,13 @@
-/* Final polish layer: loaders, faster perceived rendering, cursor UX, and smooth motion. */
+/* Performance polish layer: smoother scroll, lighter cursor, safer loaders. */
 html {
   overflow-anchor: none;
   --cursor-ring-color: rgba(230, 255, 0, 0.62);
   --cursor-dot-color: #e6ff00;
-  --cursor-fill-color: rgba(230, 255, 0, 0.055);
+  --cursor-fill-color: rgba(230, 255, 0, 0.052);
 }
 
 html[data-theme="light"] {
-  --cursor-ring-color: rgba(15, 23, 42, 0.52);
+  --cursor-ring-color: rgba(15, 23, 42, 0.5);
   --cursor-dot-color: #111827;
   --cursor-fill-color: rgba(17, 24, 39, 0.045);
 }
@@ -15,7 +15,7 @@ html[data-theme="light"] {
 html[data-theme="dark"] {
   --cursor-ring-color: rgba(230, 255, 0, 0.64);
   --cursor-dot-color: #e6ff00;
-  --cursor-fill-color: rgba(230, 255, 0, 0.055);
+  --cursor-fill-color: rgba(230, 255, 0, 0.052);
 }
 
 .typed-element {
@@ -50,8 +50,9 @@ html[data-theme="dark"] {
   z-index: 100000;
   pointer-events: none;
   opacity: 0;
-  will-change: transform, opacity, width, height;
+  will-change: transform, opacity;
   transform: translate3d(-100px, -100px, 0);
+  contain: layout paint style;
 }
 
 .custom-cursor-ring {
@@ -60,13 +61,8 @@ html[data-theme="dark"] {
   border: 1px solid var(--cursor-ring-color);
   border-radius: 999px;
   background: var(--cursor-fill-color);
-  box-shadow: 0 0 14px rgba(230, 255, 0, 0.07);
-  transition:
-    opacity 140ms ease,
-    width 180ms cubic-bezier(.22, 1, .36, 1),
-    height 180ms cubic-bezier(.22, 1, .36, 1),
-    border-color 160ms ease,
-    background 160ms ease;
+  box-shadow: 0 0 10px rgba(230, 255, 0, 0.06);
+  transition: opacity 100ms ease, border-color 120ms ease, background 120ms ease;
 }
 
 .custom-cursor-dot {
@@ -74,33 +70,7 @@ html[data-theme="dark"] {
   height: 5px;
   border-radius: 999px;
   background: var(--cursor-dot-color);
-  transition: opacity 120ms ease, background 160ms ease;
-}
-
-html[data-cursor-visible="true"] .custom-cursor-ring,
-html[data-cursor-visible="true"] .custom-cursor-dot {
-  opacity: 1;
-}
-
-html[data-cursor-hover="true"] .custom-cursor-ring {
-  width: 58px;
-  height: 58px;
-  border-color: var(--cursor-dot-color);
-  background: rgba(230, 255, 0, 0.085);
-}
-
-html[data-theme="light"][data-cursor-hover="true"] .custom-cursor-ring {
-  background: rgba(17, 24, 39, 0.06);
-}
-
-html[data-cursor-hover="true"] .custom-cursor-dot {
-  opacity: 0.78;
-}
-
-html[data-cursor-pressed="true"] .custom-cursor-ring {
-  width: 26px;
-  height: 26px;
-  background: rgba(230, 255, 0, 0.14);
+  transition: opacity 80ms ease, background 120ms ease;
 }
 
 .portfolio-item img {
@@ -109,7 +79,7 @@ html[data-cursor-pressed="true"] .custom-cursor-ring {
 }
 
 .portfolio-item:hover img {
-  transform: scale(1.012) !important;
+  transform: scale(1.01) !important;
 }
 
 .swiper,
@@ -119,10 +89,47 @@ html[data-cursor-pressed="true"] .custom-cursor-ring {
   contain: layout paint;
 }
 
+.ambient-background {
+  contain: strict;
+  transform: translateZ(0);
+}
+
+body::before,
+.spotlight-layer {
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.spotlight-layer {
+  opacity: 0.42;
+}
+
+.aurora {
+  filter: blur(54px) !important;
+  opacity: 0.16 !important;
+  animation-duration: 22s !important;
+}
+
+.cyber-grid {
+  opacity: 0.12 !important;
+  animation-duration: 46s !important;
+}
+
+.depth-rings {
+  opacity: 0.16 !important;
+  animation-duration: 14s !important;
+}
+
+.noise-layer {
+  opacity: 0.045 !important;
+}
+
 .section-panel,
 .interactive-card,
-.profile-shell {
+.profile-shell,
+.portfolio-item {
   transform: translateZ(0);
+  contain: layout paint;
 }
 
 .image-skeleton,
@@ -161,8 +168,8 @@ html[data-cursor-pressed="true"] .custom-cursor-ring {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
-  animation: skeletonShimmer 1.25s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
 }
 
 @keyframes skeletonShimmer {
@@ -176,18 +183,26 @@ html[data-cursor-pressed="true"] .custom-cursor-ring {
     content-visibility: auto;
     contain-intrinsic-size: 1px 760px;
   }
+
+  .section-panel,
+  .interactive-card,
+  .portfolio-item {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 360px;
+  }
 }
 
 @media (max-width: 768px) {
   .aurora {
-    filter: blur(46px);
-    opacity: 0.14;
+    filter: blur(38px) !important;
+    opacity: 0.1 !important;
   }
 
   .cyber-grid,
   .depth-rings,
-  .particle-field {
-    opacity: 0.07;
+  .particle-field,
+  .spotlight-layer {
+    opacity: 0.05 !important;
   }
 }
 
