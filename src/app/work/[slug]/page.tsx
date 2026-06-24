@@ -1,6 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  CalendarDays,
+  Layers3,
+  LayoutGrid,
+  Sparkles,
+} from "lucide-react";
 import { works } from "@/data/content";
 import { extraWorks } from "@/data/extraWorks";
 import { getPortfolioWork } from "@/data/projectOverrides";
@@ -71,92 +79,136 @@ export default function WorkPage({ params }: Props) {
     <main className="relative z-10">
       <Header />
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-32 pb-16">
-        <div className="mb-8 section-panel p-5 md:p-7">
-          <p className="text-sm text-text-muted mb-2">{work.categoryLabel}</p>
-          <h1 className="!text-4xl md:!text-5xl !leading-tight !mb-3">{work.title}</h1>
-          <p className="!text-sm md:!text-base !leading-relaxed max-w-3xl">
-            {work.description}
-          </p>
-        </div>
+      <div className="work-detail-shell mx-auto max-w-[1240px] px-6 pb-16 pt-32 md:px-10 lg:px-16">
+        <section className="work-hero-card">
+          <div className="work-hero-light" aria-hidden="true" />
+          <div className="work-hero-grid" aria-hidden="true" />
 
-        <WorkCarousel images={work.images} />
+          <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
+            <div>
+              <Link href="/#portfolio" className="work-back-link">
+                <ArrowLeft className="h-4 w-4" />
+                Back to portfolio
+              </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 mt-10">
-          <div className="section-panel p-5 md:p-7">
-            <h3 className="!text-2xl mb-4">{work.client}</h3>
-            <p className="!text-base !leading-loose">{work.details}</p>
-          </div>
-          <ul className="flex flex-col gap-3 border border-white/10 rounded-2xl p-6 self-start bg-white/[0.03]">
-            {work.tags.map((tag) => (
-              <li key={tag} className="text-sm text-white/70">
-                {tag}
-              </li>
-            ))}
-            <li className="text-sm text-white/40">{work.date}</li>
-            {work.link && (
-              <li>
+              <div className="mb-5 flex flex-wrap items-center gap-3">
+                <span className="work-chip work-chip-accent">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {work.categoryLabel}
+                </span>
+                <span className="work-chip">
+                  <CalendarDays className="h-3.5 w-3.5" />
+                  {work.date}
+                </span>
+              </div>
+
+              <h1 className="work-detail-title">{work.title}</h1>
+              <p className="work-detail-lede">{work.description}</p>
+            </div>
+
+            <aside className="work-facts-card">
+              <span className="work-facts-kicker">Project snapshot</span>
+              <h2>{work.client}</h2>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {work.tags.slice(0, 5).map((tag) => (
+                  <span key={tag} className="work-stack-pill">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              {work.link && (
                 <a
                   href={work.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-accent hover:underline"
+                  className="work-live-link"
                 >
-                  View Live →
+                  View live project
+                  <ArrowUpRight className="h-4 w-4" />
                 </a>
-              </li>
-            )}
-          </ul>
-        </div>
+              )}
+            </aside>
+          </div>
+        </section>
+
+        <section className="work-media-frame">
+          <div className="work-media-header">
+            <span className="work-window-dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="work-window-label">Product preview</span>
+          </div>
+          <WorkCarousel images={work.images} />
+        </section>
+
+        <section className="work-story-grid">
+          <article className="work-story-card">
+            <span className="work-facts-kicker">Case study</span>
+            <h2>What was built</h2>
+            <p>{work.details}</p>
+          </article>
+
+          <aside className="work-stack-card">
+            <div className="work-stack-icon">
+              <Layers3 className="h-5 w-5" />
+            </div>
+            <span className="work-facts-kicker">Delivery stack</span>
+            <div className="work-stack-list">
+              {work.tags.map((tag) => (
+                <span key={tag} className="work-stack-row">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </aside>
+        </section>
 
         {work.images.length > 1 && (
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <section className="work-gallery-grid">
             {work.images.slice(1).map((img, idx) => (
-              <div key={idx} className="relative aspect-[16/9] rounded-xl overflow-hidden bg-black/30 border border-white/10">
+              <div key={idx} className="work-gallery-card">
                 <ProjectImage
                   src={img}
                   alt={`${work.title} gallery ${idx + 2}`}
-                  className="object-contain p-2"
+                  className="object-contain p-3"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             ))}
-          </div>
+          </section>
         )}
 
-        <div className="flex items-center justify-between mt-16 pt-8 border-t border-white/10">
+        <nav className="work-case-nav" aria-label="Case study navigation">
           {prevWork ? (
-            <Link
-              href={`/work/${prevWork.slug}`}
-              className="flex items-center gap-3 group"
-            >
-              <ArrowLeft className="w-5 h-5 text-accent group-hover:-translate-x-1 transition-transform" />
-              <span className="text-sm text-white/70 group-hover:text-white transition-colors">
-                Prev Case
+            <Link href={`/work/${prevWork.slug}`} className="work-nav-link work-nav-prev">
+              <ArrowLeft className="h-5 w-5" />
+              <span>
+                <small>Previous</small>
+                {prevWork.title}
               </span>
             </Link>
           ) : (
             <div />
           )}
 
-          <Link href="/#portfolio" className="text-white/50 hover:text-white transition-colors">
-            <LayoutGrid className="w-5 h-5" />
+          <Link href="/#portfolio" className="work-nav-grid" aria-label="Back to portfolio grid">
+            <LayoutGrid className="h-5 w-5" />
           </Link>
 
           {nextWork ? (
-            <Link
-              href={`/work/${nextWork.slug}`}
-              className="flex items-center gap-3 group"
-            >
-              <span className="text-sm text-white/70 group-hover:text-white transition-colors">
-                Next Case
+            <Link href={`/work/${nextWork.slug}`} className="work-nav-link work-nav-next">
+              <span>
+                <small>Next</small>
+                {nextWork.title}
               </span>
-              <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
           ) : (
             <div />
           )}
-        </div>
+        </nav>
       </div>
 
       <Footer />
