@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   ArrowUpRight,
   Bot,
@@ -18,8 +17,7 @@ import {
 import { personal, services, socialLinks } from "@/data/content";
 import TypedText from "./TypedText";
 import RevealOnScroll from "./RevealOnScroll";
-
-const profilePortrait = "/images/profile/jahanzaib-profile.svg";
+import ProfilePortrait from "./ProfilePortrait";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code2,
@@ -43,15 +41,7 @@ export default function Hero() {
         <RevealOnScroll variant="left">
           <aside className="profile-shell sticky top-28 flex flex-col gap-6">
             <div className="profile-image perspective-card group w-full aspect-[4/5] relative overflow-hidden">
-              <Image
-                src={profilePortrait}
-                alt={personal.name}
-                fill
-                priority
-                unoptimized
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 340px"
-              />
+              <ProfilePortrait alt={personal.name} />
               <div className="pointer-events-none absolute inset-x-4 bottom-4 translate-y-4 rounded-2xl border border-white/10 bg-black/40 p-4 opacity-0 backdrop-blur-xl transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 dark:bg-black/40">
                 <span className="trust-chip">Available for selected builds</span>
                 <p className="mt-3 !text-xs !leading-relaxed !text-white/75">
