@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "s.wordpress.com",
         pathname: "/mshots/v1/**",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/u/**",
+      },
     ],
   },
 };
