@@ -7,6 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 import { works, type WorkItem } from "@/data/content";
 import { extraWorks } from "@/data/extraWorks";
 import { getPortfolioWorks } from "@/data/projectOverrides";
+import { withEdrisLmsOverride } from "@/data/edrisLmsOverride";
 import SectionTitle from "./SectionTitle";
 import RevealOnScroll from "./RevealOnScroll";
 import ProjectImage from "./ProjectImage";
@@ -35,7 +36,7 @@ const FILTERS: { key: FilterKey; label: string; matcher?: (work: WorkItem) => bo
   },
 ];
 
-const portfolioWorks = getPortfolioWorks([...extraWorks, ...works]);
+const portfolioWorks = getPortfolioWorks([...extraWorks, ...works]).map(withEdrisLmsOverride);
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
