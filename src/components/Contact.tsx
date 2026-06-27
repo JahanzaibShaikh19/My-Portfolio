@@ -1,8 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import { ArrowRight, CheckCircle2, Clock3, Mail, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Clock3,
+  Mail,
+  MapPin,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import { contactInfo } from "@/data/content";
 import SectionTitle from "./SectionTitle";
 import RevealOnScroll from "./RevealOnScroll";
@@ -81,29 +89,51 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-16 scroll-mt-28">
-      <div className="relative h-48 md:h-64 w-full overflow-hidden mb-0 rounded-[2rem] border border-white/10">
-        <Image
-          src="/images/bg.jpg"
-          alt="Contact background"
-          fill
-          className="object-cover opacity-35 scale-105"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black" />
-        <div className="absolute inset-x-6 bottom-6 md:inset-x-10">
-          <span className="trust-chip">Low-friction contact flow</span>
+      <div className="contact-hero-stage">
+        <div className="contact-orbit" aria-hidden="true" />
+        <div className="contact-noise-grid" aria-hidden="true" />
+        <div className="contact-floating-dot contact-dot-one" aria-hidden="true" />
+        <div className="contact-floating-dot contact-dot-two" aria-hidden="true" />
+
+        <div className="contact-hero-content">
+          <div className="contact-hero-copy">
+            <span className="trust-chip">Low-friction contact flow</span>
+            <h2>Let’s build something users remember.</h2>
+            <p>
+              A calm handoff system for SaaS, dashboards, mobile apps, AI automations,
+              and founder-led product builds — clear, fast, and premium from the first click.
+            </p>
+          </div>
+
+          <div className="contact-hero-console" aria-hidden="true">
+            <div className="console-topline">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="console-status">
+              <Sparkles className="h-4 w-4" />
+              Premium UX pass
+            </div>
+            <div className="console-bars">
+              <i />
+              <i />
+              <i />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="px-6 md:px-10 lg:px-16 pt-12">
+      <div className="contact-content-wrap px-6 md:px-10 lg:px-16 pt-12">
         <RevealOnScroll variant="scale">
           <SectionTitle>Get In Touch</SectionTitle>
         </RevealOnScroll>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12">
+        <div className="contact-main-grid">
           <RevealOnScroll>
-            <div className="section-panel p-5 md:p-6">
+            <div className="section-panel contact-panel contact-form-panel p-5 md:p-6">
               <div className="mb-6 flex flex-col gap-2">
+                <span className="contact-mini-kicker">Project intake</span>
                 <h3 className="text-xl font-semibold">Tell me what you want to build.</h3>
                 <p className="!text-sm !leading-relaxed !text-text-secondary">
                   Draft autosaves locally, validation is immediate, and the CTA stays clear —
@@ -195,15 +225,21 @@ export default function Contact() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={200}>
-            <aside className="section-panel p-5 md:p-6 lg:sticky lg:top-28">
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold">Quick signals</h3>
+            <aside className="section-panel contact-panel contact-aside-panel p-5 md:p-6 lg:sticky lg:top-28">
+              <div className="mb-7">
+                <span className="contact-mini-kicker">Quick signals</span>
+                <h3 className="text-xl font-semibold mt-2">Best fit projects</h3>
                 <p className="mt-2 !text-sm !text-text-secondary">
-                  Best for SaaS, dashboards, mobile apps, AI automations, and full-stack product builds.
+                  SaaS, dashboards, mobile apps, AI automations, and full-stack product builds.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-5">
+              <div className="contact-signal-strip">
+                <span><ShieldCheck className="h-3.5 w-3.5" /> UX clarity</span>
+                <span><Zap className="h-3.5 w-3.5" /> Fast delivery</span>
+              </div>
+
+              <div className="flex flex-col gap-4 mt-6">
                 <div className="contact-fact">
                   <MapPin className="h-4 w-4 text-accent" />
                   <div>
@@ -234,7 +270,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-7">
                 <h6 className="contact-label mb-3">Social</h6>
                 <ul className="flex flex-wrap gap-3">
                   {contactInfo.socials.map((s) => (
