@@ -31,6 +31,15 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author, url: siteConfig.url }],
   creator: siteConfig.author,
   publisher: siteConfig.author,
+  abstract: siteConfig.shortDescription,
+  category: "technology",
+  classification: "Full Stack Engineering, SaaS Development, AI Automation, Product Engineering",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: faviconImage,
     shortcut: faviconImage,
@@ -38,10 +47,14 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    types: {
+      "text/plain": "/llms.txt",
+    },
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -62,7 +75,7 @@ export const metadata: Metadata = {
         url: socialImage,
         width: 1200,
         height: 1200,
-        alt: "Jahanzaib Shaikh Portfolio",
+        alt: "Jahanzaib Shaikh — Full Stack Engineer and AI Automation Developer",
       },
     ],
   },
@@ -73,7 +86,12 @@ export const metadata: Metadata = {
     creator: "@jahanzaib699",
     images: [socialImage],
   },
-  category: "technology",
+  other: {
+    "ai-summary": siteConfig.shortDescription,
+    "expertise": siteConfig.expertise.join(", "),
+    "service-area": siteConfig.serviceArea,
+    "profile:username": "JahanzaibShaikh19",
+  },
 };
 
 export const viewport: Viewport = {
@@ -86,25 +104,62 @@ export const viewport: Viewport = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Jahanzaib Shaikh",
-  url: siteConfig.url,
-  jobTitle: "Full Stack Engineer and AI Automation Developer",
-  email: siteConfig.email,
-  sameAs: [
-    siteConfig.links.github,
-    siteConfig.links.linkedin,
-    siteConfig.links.twitter,
-    siteConfig.links.upwork,
-  ],
-  knowsAbout: [
-    "Next.js",
-    "React",
-    "Node.js",
-    "SaaS Development",
-    "AI Automation",
-    "Mobile Apps",
-    "Dashboard Design",
+  "@graph": [
+    {
+      "@type": "Person",
+      name: siteConfig.legalName,
+      alternateName: ["Jahanzaib", "Jahanzaib Shaikh", "JahanzaibShaikh19"],
+      url: siteConfig.url,
+      image: `${siteConfig.url}/images/Profile.png`,
+      jobTitle: ["Full Stack Engineer", "AI Automation Developer", "SaaS Developer"],
+      email: siteConfig.email,
+      knowsLanguage: siteConfig.languages,
+      knowsAbout: siteConfig.expertise,
+      sameAs: [
+        siteConfig.links.github,
+        siteConfig.links.linkedin,
+        siteConfig.links.twitter,
+        siteConfig.links.upwork,
+      ],
+    },
+    {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      inLanguage: "en",
+    },
+    {
+      "@type": "ProfessionalService",
+      name: "Jahanzaib Shaikh Full Stack Engineering Services",
+      url: siteConfig.url,
+      description: siteConfig.description,
+      areaServed: siteConfig.serviceArea,
+      serviceType: siteConfig.services.map((service) => service.name),
+      knowsAbout: siteConfig.expertise,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: siteConfig.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+    {
+      "@type": "ItemList",
+      name: "Featured projects by Jahanzaib Shaikh",
+      itemListElement: siteConfig.featuredProjects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteConfig.url}/work/${project.slug}`,
+        name: project.name,
+        description: project.description,
+      })),
+    },
   ],
 };
 
