@@ -1,0 +1,42 @@
+# Jahanzaib Shaikh
+
+Canonical website: https://jahanzaibshaikh.dev
+
+Jahanzaib Shaikh is a full stack engineer and AI automation developer from Sukkur, Pakistan.
+
+Core work:
+- SaaS platforms
+- Web applications
+- Dashboards
+- Mobile apps
+- Backend systems
+- API integrations
+- AI automation workflows
+- Premium UI/UX product interfaces
+
+Core stack:
+- Next.js
+- React
+- TypeScript
+- Node.js
+- Supabase
+- Firebase
+- Flutter
+- Dart
+- Tailwind CSS
+
+Important pages:
+- Portfolio: https://jahanzaibshaikh.dev/#portfolio
+- Resume: https://jahanzaibshaikh.dev/resume
+- Contact: https://jahanzaibshaikh.dev/#contact
+- MyAirBoard: https://jahanzaibshaikh.dev/work/myairboard
+- Edris LMS: https://jahanzaibshaikh.dev/work/edris-lms
+- Paiya: https://jahanzaibshaikh.dev/work/ride-hailing-app
+- SustainBite: https://jahanzaibshaikh.dev/work/sustainbite
+- Neuroverse: https://jahanzaibshaikh.dev/work/neuroverse
+
+Contact:
+- Email: jahanzaib@hyperlogic.studio
+- GitHub: https://github.com/JahanzaibShaikh19
+- LinkedIn: https://www.linkedin.com/in/jahanzaib-shaikh-9a6199215/
+- X: https://x.com/jahanzaib699
