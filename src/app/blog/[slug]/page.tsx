@@ -8,6 +8,7 @@ import { blogPosts } from "@/data/content";
 import { blogCoverMap } from "@/data/blogCovers";
 import { blogDetails } from "@/data/blogDetails";
 import { siteConfig } from "@/config/site";
+import { blogArticleJsonLd, breadcrumbsJsonLd } from "@/lib/seo";
 
 type Props = { params: { slug: string } };
 
@@ -20,26 +21,30 @@ export function generateMetadata({ params }: Props) {
   const detail = post ? blogDetails[post.slug] : null;
 
   if (!post || !detail) {
-    return { title: "Blog Post" };
+    return { title: "Blog Post", robots: { index: false, follow: false } };
   }
 
   const path = `/blog/${post.slug}`;
   const image = blogCoverMap[post.slug] ?? post.image;
+  const title = `${post.title} — Jahanzaib Shaikh`;
 
   return {
-    title: post.title,
+    title,
     description: detail.excerpt,
+    keywords: [...post.categories, "Jahanzaib Shaikh", "full stack engineering", "AI automation", "software development"],
     alternates: { canonical: path },
     openGraph: {
-      title: post.title,
+      title,
       description: detail.excerpt,
       url: `${siteConfig.url}${path}`,
       type: "article",
+      publishedTime: post.date,
+      authors: [siteConfig.author],
       images: [{ url: image, width: 1400, height: 875, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title,
       description: detail.excerpt,
       images: [image],
     },
@@ -53,9 +58,28 @@ export default function BlogPostPage({ params }: Props) {
   if (!post || !detail) notFound();
 
   const image = blogCoverMap[post.slug] ?? post.image;
+  const pageJsonLd = [
+    blogArticleJsonLd({
+      slug: post.slug,
+      title: post.title,
+      description: detail.excerpt,
+      image,
+      datePublished: post.date,
+      keywords: post.categories,
+    }),
+    breadcrumbsJsonLd([
+      { name: "Home", url: "/" },
+      { name: "Blog", url: "/#blog" },
+      { name: post.title, url: `/blog/${post.slug}` },
+    ]),
+  ];
 
   return (
     <main className="relative z-10 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
+      />
       <Header />
 
       <article className="mx-auto max-w-[1120px] px-6 md:px-10 lg:px-16 pt-32 pb-16">
