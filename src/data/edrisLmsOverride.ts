@@ -1,10 +1,7 @@
 import type { WorkItem } from "./content";
+import { edrisCoverDataUri } from "./edrisCoverData";
 
-const edrisImages = [
-  "/images/works/work-2/01.jpg",
-  "/images/works/work-2/02.jpg",
-  "/images/works/work-2/03.jpg",
-];
+const edrisImages = [edrisCoverDataUri];
 
 export function withEdrisLmsOverride(work: WorkItem): WorkItem {
   if (work.slug !== "edris-lms") return work;
@@ -12,8 +9,8 @@ export function withEdrisLmsOverride(work: WorkItem): WorkItem {
   return {
     ...work,
     categoryLabel: "Premium EdTech Platform",
-    cover: "/images/works/work-2/01.jpg",
-    gridCover: "/images/works/work-2/01.jpg",
+    cover: edrisCoverDataUri,
+    gridCover: edrisCoverDataUri,
     images: edrisImages,
     client: "Edris LMS",
     description:
