@@ -18,6 +18,7 @@ const poppins = Poppins({
 
 const socialImage = "/images/Profile.png";
 const faviconImage = "/icon";
+const googleSiteVerification = "Oww6IMISsOFq3gZJzV8SzxpZoyQmiVb8iPbHBbHCaf8";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -39,6 +40,9 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
+  },
+  verification: {
+    google: googleSiteVerification,
   },
   icons: {
     icon: faviconImage,
@@ -171,6 +175,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <head>
+        <meta name="google-site-verification" content={googleSiteVerification} />
         <script
           dangerouslySetInnerHTML={{
             __html: `
