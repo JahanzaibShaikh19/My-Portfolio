@@ -8,6 +8,7 @@ import Preloader from "@/components/Preloader";
 import AmbientBackground from "@/components/AmbientBackground";
 import CustomCursor from "@/components/CustomCursor";
 import { siteConfig } from "@/config/site";
+import { rootJsonLd } from "@/lib/seo";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,6 +32,15 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author, url: siteConfig.url }],
   creator: siteConfig.author,
   publisher: siteConfig.author,
+  abstract: siteConfig.shortDescription,
+  category: "technology",
+  classification: "Full Stack Engineering, SaaS Development, AI Automation, Product Engineering",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: faviconImage,
     shortcut: faviconImage,
@@ -38,10 +48,14 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    types: {
+      "text/plain": "/llms.txt",
+    },
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -62,7 +76,7 @@ export const metadata: Metadata = {
         url: socialImage,
         width: 1200,
         height: 1200,
-        alt: "Jahanzaib Shaikh Portfolio",
+        alt: "Jahanzaib Shaikh — Full Stack Engineer and AI Automation Developer",
       },
     ],
   },
@@ -73,7 +87,12 @@ export const metadata: Metadata = {
     creator: "@jahanzaib699",
     images: [socialImage],
   },
-  category: "technology",
+  other: {
+    "ai-summary": siteConfig.shortDescription,
+    "expertise": siteConfig.expertise.join(", "),
+    "service-area": siteConfig.serviceArea,
+    "profile:username": "JahanzaibShaikh19",
+  },
 };
 
 export const viewport: Viewport = {
@@ -82,30 +101,6 @@ export const viewport: Viewport = {
   maximumScale: 5,
   themeColor: "#000000",
   colorScheme: "dark light",
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Jahanzaib Shaikh",
-  url: siteConfig.url,
-  jobTitle: "Full Stack Engineer and AI Automation Developer",
-  email: siteConfig.email,
-  sameAs: [
-    siteConfig.links.github,
-    siteConfig.links.linkedin,
-    siteConfig.links.twitter,
-    siteConfig.links.upwork,
-  ],
-  knowsAbout: [
-    "Next.js",
-    "React",
-    "Node.js",
-    "SaaS Development",
-    "AI Automation",
-    "Mobile Apps",
-    "Dashboard Design",
-  ],
 };
 
 export default function RootLayout({
@@ -134,7 +129,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(rootJsonLd()) }}
         />
       </head>
       <body className="font-sans antialiased selection:bg-accent selection:text-black">
