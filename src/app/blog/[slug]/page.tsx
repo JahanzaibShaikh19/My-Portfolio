@@ -20,26 +20,30 @@ export function generateMetadata({ params }: Props) {
   const detail = post ? blogDetails[post.slug] : null;
 
   if (!post || !detail) {
-    return { title: "Blog Post" };
+    return { title: "Blog Post", robots: { index: false, follow: false } };
   }
 
   const path = `/blog/${post.slug}`;
   const image = blogCoverMap[post.slug] ?? post.image;
+  const title = `${post.title} — Jahanzaib Shaikh`;
 
   return {
-    title: post.title,
+    title,
     description: detail.excerpt,
+    keywords: [...post.categories, "Jahanzaib Shaikh", "full stack engineering", "AI automation", "software development"],
     alternates: { canonical: path },
     openGraph: {
-      title: post.title,
+      title,
       description: detail.excerpt,
       url: `${siteConfig.url}${path}`,
       type: "article",
+      publishedTime: post.date,
+      authors: [siteConfig.author],
       images: [{ url: image, width: 1400, height: 875, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title,
       description: detail.excerpt,
       images: [image],
     },
@@ -53,9 +57,42 @@ export default function BlogPostPage({ params }: Props) {
   if (!post || !detail) notFound();
 
   const image = blogCoverMap[post.slug] ?? post.image;
+  const articleUrl = `${siteConfig.url}/blog/${post.slug}`;
+  const pageJsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: detail.excerpt,
+      image: image.startsWith("http") ? image : `${siteConfig.url}${image}`,
+      url: articleUrl,
+      datePublished: post.date,
+      dateModified: post.date,
+      author: {
+        "@type": "Person",
+        name: siteConfig.author,
+        url: siteConfig.url,
+      },
+      mainEntityOfPage: articleUrl,
+      keywords: post.categories.join(", "),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.url}/#blog` },
+        { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
+      ],
+    },
+  ];
 
   return (
     <main className="relative z-10 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
+      />
       <Header />
 
       <article className="mx-auto max-w-[1120px] px-6 md:px-10 lg:px-16 pt-32 pb-16">
