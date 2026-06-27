@@ -1,11 +1,9 @@
 import type { WorkItem } from "./content";
-import { workPreviewUrls } from "./workPreviewUrls";
 
 const edrisImages = [
-  workPreviewUrls.edrisHome,
-  workPreviewUrls.edrisDashboard,
-  workPreviewUrls.edrisCourses,
-  workPreviewUrls.edrisDark,
+  "/images/works/work-2/01.jpg",
+  "/images/works/work-2/02.jpg",
+  "/images/works/work-2/03.jpg",
 ];
 
 export function withEdrisLmsOverride(work: WorkItem): WorkItem {
@@ -14,8 +12,8 @@ export function withEdrisLmsOverride(work: WorkItem): WorkItem {
   return {
     ...work,
     categoryLabel: "Premium EdTech Platform",
-    cover: workPreviewUrls.edrisHome,
-    gridCover: workPreviewUrls.edrisHome,
+    cover: "/images/works/work-2/01.jpg",
+    gridCover: "/images/works/work-2/01-grid.jpg",
     images: edrisImages,
     client: "Edris LMS",
     description:
