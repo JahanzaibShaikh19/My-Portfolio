@@ -12,6 +12,7 @@ import {
 import { works } from "@/data/content";
 import { extraWorks } from "@/data/extraWorks";
 import { getPortfolioWork } from "@/data/projectOverrides";
+import { withEdrisLmsOverride } from "@/data/edrisLmsOverride";
 import { siteConfig } from "@/config/site";
 import WorkCarousel from "@/components/WorkCarousel";
 import ProjectImage from "@/components/ProjectImage";
@@ -22,13 +23,17 @@ type Props = { params: { slug: string } };
 
 const portfolioItems = [...extraWorks, ...works];
 
+function resolveWork(work: (typeof portfolioItems)[number]) {
+  return withEdrisLmsOverride(getPortfolioWork(work));
+}
+
 export function generateStaticParams() {
   return portfolioItems.map((w) => ({ slug: w.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
   const baseWork = portfolioItems.find((w) => w.slug === params.slug);
-  const work = baseWork ? getPortfolioWork(baseWork) : null;
+  const work = baseWork ? resolveWork(baseWork) : null;
 
   if (!work) {
     return {
@@ -71,7 +76,7 @@ export default function WorkPage({ params }: Props) {
   const index = portfolioItems.findIndex((w) => w.slug === params.slug);
   if (index === -1) notFound();
 
-  const work = getPortfolioWork(portfolioItems[index]);
+  const work = resolveWork(portfolioItems[index]);
   const prevWork = portfolioItems[index - 1] ?? null;
   const nextWork = portfolioItems[index + 1] ?? null;
 
