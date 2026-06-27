@@ -1,0 +1,18 @@
+/* TEAM */
+
+Creator: Jahanzaib Shaikh
+Role: Full Stack Engineer, SaaS Developer, AI Automation Developer
+Location: Sukkur, Pakistan
+Website: https://jahanzaibshaikh.dev
+Contact: jahanzaib@hyperlogic.studio
+GitHub: https://github.com/JahanzaibShaikh19
+LinkedIn: https://www.linkedin.com/in/jahanzaib-shaikh-9a6199215/
+X: https://x.com/jahanzaib699
+
+/* SITE */
+
+Name: Jahanzaib Shaikh Portfolio
+Purpose: Portfolio and case-study website for full-stack engineering, SaaS development, dashboards, mobile apps, AI automation, product UI/UX, and backend systems.
+Tech: Next.js, React, TypeScript, Tailwind CSS, Vercel
+Language: English
+Canonical URL: https://jahanzaibshaikh.dev
