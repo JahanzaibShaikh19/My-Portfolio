@@ -13,7 +13,7 @@ export function withEdrisLmsOverride(work: WorkItem): WorkItem {
     ...work,
     categoryLabel: "Premium EdTech Platform",
     cover: "/images/works/work-2/01.jpg",
-    gridCover: "/images/works/work-2/01-grid.jpg",
+    gridCover: "/images/works/work-2/01.jpg",
     images: edrisImages,
     client: "Edris LMS",
     description:
