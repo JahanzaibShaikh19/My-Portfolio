@@ -1,7 +1,7 @@
 # Premium UI/UX Upgrade
 
 This branch upgrades the portfolio with a stronger front-end interaction system and a more premium visual language.
-
+  
 ## Included
 
 - Animated cyber / 3D-like ambient background with aurora glow, particles, perspective grid, depth rings, noise texture, and pointer spotlight.
