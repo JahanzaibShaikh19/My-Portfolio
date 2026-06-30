@@ -13,6 +13,21 @@ import SectionTitle from "./SectionTitle";
 import RevealOnScroll from "./RevealOnScroll";
 import SkillBar from "./SkillBar";
 
+const resumeSignals = [
+  {
+    label: "Primary fit",
+    value: "SaaS, dashboards, mobile apps, AI automation",
+  },
+  {
+    label: "Delivery style",
+    value: "Scope clearly, ship fast, polish interaction details",
+  },
+  {
+    label: "Stack confidence",
+    value: "Next.js, React, Node.js, Supabase, Firebase, Flutter",
+  },
+];
+
 function Timeline({
   items,
 }: {
@@ -50,22 +65,33 @@ export default function Resume() {
 
       <RevealOnScroll>
         <div className="section-panel mb-8 p-5 md:p-6">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
-              <span className="trust-chip mb-3">Execution layer</span>
-              <h3 className="text-lg font-semibold">From idea to shipped product</h3>
-              <Link
-                href="/resume"
-                className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline"
-              >
-                Open polished resume →
-              </Link>
+              <span className="section-eyebrow">Execution layer</span>
+              <h3 className="mt-4 text-2xl font-semibold leading-tight">
+                Fast scan for recruiters, founders, and technical decision makers.
+              </h3>
+              <p className="mt-3 !text-sm !leading-relaxed !text-text-secondary">
+                Role proof, project fit, and stack confidence are grouped so visitors can judge
+                fit quickly without reading every timeline item.
+              </p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <Link href="/resume" className="magnetic-button">
+                  Open polished resume →
+                </Link>
+                <a href="#portfolio" className="secondary-button">
+                  See project proof
+                </a>
+              </div>
             </div>
-            <p className="!text-sm !leading-relaxed !text-text-secondary md:col-span-2">
-              The resume is structured for fast scanning: role proof first, education next,
-              then skill confidence. This reduces cognitive load and helps visitors quickly
-              judge fit without reading every line.
-            </p>
+            <div className="micro-proof-grid">
+              {resumeSignals.map((signal) => (
+                <article key={signal.label} className="micro-proof-chip">
+                  <strong className="mb-2 block text-text-primary">{signal.label}</strong>
+                  {signal.value}
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </RevealOnScroll>

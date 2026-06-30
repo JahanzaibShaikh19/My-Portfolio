@@ -36,6 +36,24 @@ const TRUST_SIGNALS = [
   { label: "Full-stack delivery", value: "End-to-end", icon: Zap },
 ];
 
+const BUILD_PATH = [
+  {
+    step: "01",
+    title: "Clarify",
+    detail: "Turn rough ideas into a clean product scope and user journey.",
+  },
+  {
+    step: "02",
+    title: "Build",
+    detail: "Ship interfaces, APIs, dashboards, automations, and integrations.",
+  },
+  {
+    step: "03",
+    title: "Polish",
+    detail: "Optimize performance, UX details, responsiveness, and launch readiness.",
+  },
+];
+
 export default function Hero() {
   return (
     <section id="home" className="px-6 md:px-10 lg:px-16 pt-32 pb-16 md:pt-36">
@@ -50,7 +68,6 @@ export default function Hero() {
                 priority
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 340px"
-                style={{ transform: "scaleX(-1)" }}
               />
               <div className="pointer-events-none absolute inset-x-4 bottom-4 translate-y-4 rounded-2xl border border-white/10 bg-black/40 p-4 opacity-0 backdrop-blur-xl transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 dark:bg-black/40">
                 <span className="trust-chip">Available for selected builds</span>
@@ -68,7 +85,7 @@ export default function Hero() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="social-pill"
+                    className="social-pill premium-focus"
                   >
                     {link.label}
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -86,7 +103,7 @@ export default function Hero() {
                 <Sparkles className="h-3.5 w-3.5" />
                 Product-minded full-stack engineer
               </span>
-              <span className="trust-chip">AI + SaaS + Automation</span>
+              <span className="trust-chip">SaaS + Dashboards + AI Automation</span>
             </div>
           </RevealOnScroll>
 
@@ -102,28 +119,62 @@ export default function Hero() {
           <RevealOnScroll delay={260}>
             <h1 className="hero-big mb-6">
               I&apos;m {personal.name}
-              <br />
-              I build like a <TypedText strings={personal.rolesLoop} />
+              <br />I build product systems like a <TypedText strings={personal.rolesLoop} />
             </h1>
           </RevealOnScroll>
 
           <RevealOnScroll delay={320}>
-            <p className="max-w-3xl mb-8 text-balance">{personal.bio}</p>
+            <p className="max-w-3xl mb-8 text-balance">
+              I help founders and teams turn messy product ideas into clean SaaS platforms,
+              dashboards, mobile apps, and AI automation systems — with sharp UI, stable
+              backend logic, and launch-ready execution.
+            </p>
           </RevealOnScroll>
 
           <RevealOnScroll delay={380}>
-            <div className="mb-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#portfolio" className="magnetic-button">
-                See proof of work
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+              <a href="#portfolio" className="magnetic-button premium-focus">
+                View selected work
                 <ArrowUpRight className="h-4 w-4" />
               </a>
-              <a href="#contact" className="secondary-button">
-                Start a project conversation
+              <a href="#contact" className="secondary-button premium-focus">
+                Start a project
+              </a>
+              <a href="/resume" className="secondary-button premium-focus">
+                View resume
               </a>
             </div>
           </RevealOnScroll>
 
-          <RevealOnScroll delay={440}>
+          <RevealOnScroll delay={420}>
+            <div className="hero-clarity-panel mb-9 rounded-[28px] p-4 md:p-5">
+              <div className="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <span className="section-eyebrow">How I reduce risk</span>
+                  <h2 className="mt-3 text-xl font-semibold tracking-tight md:text-2xl">
+                    Clear scope, fast execution, premium finish.
+                  </h2>
+                </div>
+                <p className="max-w-sm !text-xs !leading-relaxed !text-text-secondary">
+                  A simple build flow helps visitors understand how a rough idea becomes a
+                  usable product without extra mental load.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                {BUILD_PATH.map((item) => (
+                  <article key={item.step} className="hero-path-step rounded-2xl p-4">
+                    <span className="text-xs font-black text-accent">{item.step}</span>
+                    <h3 className="mt-2 text-sm font-semibold">{item.title}</h3>
+                    <p className="mt-2 !text-xs !leading-relaxed !text-text-secondary">
+                      {item.detail}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll delay={460}>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 mb-9">
               {TRUST_SIGNALS.map((signal) => {
                 const Icon = signal.icon;
