@@ -235,7 +235,7 @@ export default function Contact() {
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
                     <div>
                       <strong className="block text-text-primary">Message sent successfully.</strong>
-                      I’ll get the website alert by email and reply as soon as possible.
+                      I&apos;ll get the website alert by email and reply as soon as possible.
                     </div>
                   </div>
                 )}
