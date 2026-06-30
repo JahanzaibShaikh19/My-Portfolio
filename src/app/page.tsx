@@ -8,6 +8,7 @@ import ClientLogos from "@/components/ClientLogos";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ExperienceDesignStrip from "@/components/ExperienceDesignStrip";
+import TrustLayer from "@/components/WhyWorkWithMe";
 
 export default function Home() {
   return (
@@ -18,6 +19,8 @@ export default function Home() {
         <Hero />
 
         <ExperienceDesignStrip />
+
+        <TrustLayer />
 
         <hr className="border-white/10 mx-6 md:mx-10 lg:mx-16" />
         <Testimonials />
