@@ -15,6 +15,7 @@ import { getPortfolioWork } from "@/data/projectOverrides";
 import { withEdrisLmsOverride } from "@/data/edrisLmsOverride";
 import { siteConfig } from "@/config/site";
 import WorkCarousel from "@/components/WorkCarousel";
+import WorkThinkingLayer from "@/components/WorkThinkingLayer";
 import ProjectImage from "@/components/ProjectImage";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -169,6 +170,8 @@ export default function WorkPage({ params }: Props) {
             </div>
           </aside>
         </section>
+
+        <WorkThinkingLayer work={work} />
 
         {work.images.length > 1 && (
           <section className="work-gallery-grid">
