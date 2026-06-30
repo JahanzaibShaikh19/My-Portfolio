@@ -79,8 +79,8 @@ export default function Resume() {
                 <Link href="/resume" className="magnetic-button">
                   Open polished resume →
                 </Link>
-                <a href="/Jahanzaib-Shaikh-Resume.pdf" className="secondary-button" target="_blank" rel="noopener noreferrer">
-                  Download PDF
+                <a href="#portfolio" className="secondary-button">
+                  See project proof
                 </a>
               </div>
             </div>
