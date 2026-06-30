@@ -1,0 +1,93 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+endobj
+7 0 obj
+<< /Length 4936 >>
+stream
+BT /F2 18 Tf 220 770 Td (JAHANZAIB SHAIKH) Tj ET
+BT /F1 7.5 Tf 72 746 Td (Full Stack Developer | jahanzaibshaikh16@gmail.com | github.com/JahanzaibShaikh | linkedin.com/in/jahanzaib-shaikh) Tj ET
+BT /F2 10.5 Tf 36 724 Td (Summary) Tj ET
+0.7 w 36 719 m 576 719 l S
+BT /F1 8.8 Tf 36 706 Td (Full Stack Engineer With 2+ Years Of Experience Building Scalable Web Applications, SaaS Platforms, Automation) Tj ET
+BT /F1 8.8 Tf 36 694 Td (Systems And Data-Intensive Products. Strong With Next.js, React, Node.js, TypeScript, PostgreSQL, Supabase,) Tj ET
+BT /F1 8.8 Tf 36 682 Td (Playwright And CI/CD. Experienced In API Integrations, Product Data Pipelines, Technical SEO And Client-Facing) Tj ET
+BT /F1 8.8 Tf 36 670 Td (Delivery From Requirements To Deployment.) Tj ET
+BT /F2 10.5 Tf 36 652 Td (Education) Tj ET
+0.7 w 36 647 m 576 647 l S
+BT /F2 8.8 Tf 42 634 Td (Sukkur IBA University, Pakistan                                      2022 - 2026) Tj ET
+BT /F3 8 Tf 42 622 Td (Bachelor of Science in Computer Science) Tj ET
+BT /F2 8.8 Tf 42 609 Td (MERN Stack Certification - IT Bootcamp                              2023 - 2024) Tj ET
+BT /F3 8 Tf 42 597 Td (Sukkur IBA University & IS&TD Government of Sindh) Tj ET
+BT /F2 10.5 Tf 36 578 Td (Experience) Tj ET
+0.7 w 36 573 m 576 573 l S
+BT /F2 8.8 Tf 42 560 Td (HyperLogic Studio                                                    2024 - 2026) Tj ET
+BT /F3 8 Tf 42 548 Td (Full Stack Engineer                                                  Remote / Pakistan) Tj ET
+BT /F1 8.5 Tf 36 535 Td (- Build production-grade SaaS platforms, web applications, API integrations, CMS builds and SEO/performance) Tj ET
+BT /F1 8.5 Tf 46 524 Td (  systems for B2B and B2C clients.) Tj ET
+BT /F1 8.5 Tf 36 513 Td (- Developed MyAirboard property-management SaaS using Next.js, Node.js and Supabase with bookings, properties,) Tj ET
+BT /F1 8.5 Tf 46 502 Td (  guest management, expense tracking, P&L analytics, revenue dashboards and live reporting.) Tj ET
+BT /F1 8.5 Tf 36 491 Td (- Delivered Sustainbite technical SEO improvements including crawlability, Core Web Vitals, metadata,) Tj ET
+BT /F1 8.5 Tf 46 480 Td (  canonical tags, Schema.org JSON-LD, sitemaps and Search Console monitoring.) Tj ET
+BT /F1 8.5 Tf 36 469 Td (- Built AusPower IoT valve-control mobile/web app with device communication, real-time state sync, command) Tj ET
+BT /F1 8.5 Tf 46 458 Td (  acknowledgement and a clean operator UI.) Tj ET
+BT /F2 10.5 Tf 36 441 Td (Skills) Tj ET
+0.7 w 36 436 m 576 436 l S
+BT /F1 8.5 Tf 36 423 Td (- Languages: JavaScript/TypeScript, Python, Java, SQL, HTML/CSS, Dart) Tj ET
+BT /F1 8.5 Tf 36 412 Td (- Frameworks/Libraries: React, Next.js, Node.js, Express, React Native, Flutter, Tailwind CSS) Tj ET
+BT /F1 8.5 Tf 36 401 Td (- Databases/Cloud: PostgreSQL, Supabase, Firebase, MongoDB, Docker, GitHub Actions CI/CD) Tj ET
+BT /F1 8.5 Tf 36 390 Td (- Technologies: REST APIs, OAuth APIs, Playwright, product sync pipelines, Google APIs, OpenAI Whisper) Tj ET
+BT /F1 8.5 Tf 36 379 Td (- Concepts: Full-Stack Development, SaaS Platforms, Automation Systems, API Integrations, Technical SEO, CI/CD) Tj ET
+BT /F2 10.5 Tf 36 362 Td (Projects) Tj ET
+0.7 w 36 357 m 576 357 l S
+BT /F2 8.8 Tf 42 344 Td (MyAirboard Property-Management SaaS - myairboard.com) Tj ET
+BT /F3 8 Tf 42 332 Td (Next.js, Node.js, Supabase/PostgreSQL, HCI Concepts) Tj ET
+BT /F1 8.5 Tf 36 319 Td (- Built SaaS replacing spreadsheet workflows with structured property, booking and guest-management modules) Tj ET
+BT /F1 8.5 Tf 46 308 Td (  plus expenses, P&L analytics, revenue insights and dashboards.) Tj ET
+BT /F2 8.8 Tf 42 297 Td (B2B Spare Parts Portal) Tj ET
+BT /F3 8 Tf 42 285 Td (Next.js 14, Supabase, Playwright, CPR OAuth 1.0a, GitHub Actions, Real-time sync) Tj ET
+BT /F1 8.5 Tf 36 272 Td (- Enterprise procurement platform for six store environments, three-tier pricing and 36,000+ product) Tj ET
+BT /F1 8.5 Tf 46 261 Td (  extraction/synchronization with validation pipelines.) Tj ET
+BT /F2 8.8 Tf 42 250 Td (Edris LMS) Tj ET
+BT /F3 8 Tf 42 238 Td (Node.js, Express, PostgreSQL, OpenAI Whisper, Solidity, Polygon, Micro-services) Tj ET
+BT /F1 8.5 Tf 36 225 Td (- AI-powered learning system with course APIs, AI lecture transcription and certificate verification.) Tj ET
+BT /F2 8.8 Tf 42 214 Td (Khabardar - Fake News Detection Platform) Tj ET
+BT /F3 8 Tf 42 202 Td (Python, NLP, TF-IDF, React, REST APIs) Tj ET
+BT /F1 8.5 Tf 36 189 Td (- Built classification pipeline consumed by React frontend; achieved 1st Position at Sukkur IBA University) Tj ET
+BT /F1 8.5 Tf 46 178 Td (  competition.) Tj ET
+BT /F2 10.5 Tf 36 161 Td (Achievements) Tj ET
+0.7 w 36 156 m 576 156 l S
+BT /F1 8.5 Tf 36 143 Td (- 1st Position - Khabardar AI Fake News Detection System, Sukkur IBA University.) Tj ET
+BT /F1 8.5 Tf 36 132 Td (- Delivered multiple end-to-end client systems across SaaS, IoT, enterprise portals and integrated platforms.) Tj ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000261 00000 n 
+0000000331 00000 n 
+0000000406 00000 n 
+0000000484 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+5472
+%%EOF
