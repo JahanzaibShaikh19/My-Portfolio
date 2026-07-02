@@ -101,27 +101,27 @@ body::before,
 }
 
 .spotlight-layer {
-  opacity: 0.42;
+  opacity: 0.32;
 }
 
 .aurora {
-  filter: blur(54px) !important;
-  opacity: 0.16 !important;
-  animation-duration: 22s !important;
+  filter: blur(48px) !important;
+  opacity: 0.13 !important;
+  animation-duration: 28s !important;
 }
 
 .cyber-grid {
-  opacity: 0.12 !important;
-  animation-duration: 46s !important;
+  opacity: 0.08 !important;
+  animation-duration: 60s !important;
 }
 
 .depth-rings {
-  opacity: 0.16 !important;
-  animation-duration: 14s !important;
+  opacity: 0.12 !important;
+  animation-duration: 18s !important;
 }
 
 .noise-layer {
-  opacity: 0.045 !important;
+  opacity: 0.035 !important;
 }
 
 .section-panel,
@@ -139,8 +139,21 @@ body::before,
 .skeleton-pill {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 35%),
+    linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
   border: 1px solid rgba(255,255,255,.08);
+}
+
+html[data-theme="light"] .image-skeleton,
+html[data-theme="light"] .skeleton-block,
+html[data-theme="light"] .skeleton-card,
+html[data-theme="light"] .skeleton-line,
+html[data-theme="light"] .skeleton-pill {
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 35%),
+    linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.55));
+  border-color: rgba(26,25,22,.08);
 }
 
 .image-skeleton {
@@ -168,13 +181,28 @@ body::before,
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
-  animation: skeletonShimmer 1.6s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.13), transparent);
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
 }
 
 @keyframes skeletonShimmer {
   100% {
     transform: translateX(100%);
+  }
+}
+
+.portfolio-card-enter {
+  animation: portfolioCardIn .34s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes portfolioCardIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -186,30 +214,30 @@ body::before,
   flex-direction: column;
   border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--border-default));
   background:
-    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 34%),
-    linear-gradient(145deg, rgba(255,255,255,.105), rgba(255,255,255,.028) 52%, rgba(255,255,255,.072)),
-    rgba(255,255,255,.045);
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 34%),
+    linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.024) 52%, rgba(255,255,255,.06)),
+    rgba(255,255,255,.04);
   box-shadow:
-    0 24px 72px rgba(0,0,0,.32),
-    inset 0 1px 0 rgba(255,255,255,.13),
-    0 0 0 1px rgba(255,255,255,.025);
-  backdrop-filter: blur(18px) saturate(1.1);
-  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+    0 20px 58px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 0 0 1px rgba(255,255,255,.02);
+  backdrop-filter: blur(14px) saturate(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.05);
   transition:
-    transform .36s cubic-bezier(.22,1,.36,1),
-    border-color .36s ease,
-    box-shadow .36s ease,
-    background .36s ease;
+    transform .32s cubic-bezier(.22,1,.36,1),
+    border-color .32s ease,
+    box-shadow .32s ease,
+    background .32s ease;
 }
 
 html[data-theme="light"] .portfolio-glass-card {
   background:
-    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 36%),
-    linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,255,255,.62) 58%, rgba(255,255,255,.84)),
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 36%),
+    linear-gradient(145deg, rgba(255,255,255,.9), rgba(255,255,255,.64) 58%, rgba(255,255,255,.82)),
     rgba(255,255,255,.82);
   border-color: rgba(26,25,22,.11);
   box-shadow:
-    0 24px 70px rgba(88,75,56,.14),
+    0 20px 54px rgba(88,75,56,.12),
     inset 0 1px 0 rgba(255,255,255,.92),
     0 0 0 1px rgba(26,25,22,.035);
 }
@@ -228,31 +256,31 @@ html[data-theme="light"] .portfolio-glass-card {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,.42), color-mix(in srgb, var(--accent) 58%, transparent), transparent 62%);
+  background: linear-gradient(135deg, rgba(255,255,255,.35), color-mix(in srgb, var(--accent) 46%, transparent), transparent 62%);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
-  opacity: .42;
-  transition: opacity .36s ease;
+  opacity: .38;
+  transition: opacity .32s ease;
 }
 
 .portfolio-glass-card::after {
   inset: -42% -65%;
-  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.20), transparent 58%);
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.16), transparent 58%);
   transform: translateX(-36%) rotate(8deg);
   opacity: 0;
-  transition: transform .72s cubic-bezier(.22,1,.36,1), opacity .36s ease;
+  transition: transform .58s cubic-bezier(.22,1,.36,1), opacity .28s ease;
 }
 
 .portfolio-card-light {
-  width: 220px;
-  height: 220px;
-  right: -92px;
-  top: -92px;
+  width: 190px;
+  height: 190px;
+  right: -82px;
+  top: -82px;
   border-radius: 999px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 32%, transparent), transparent 70%);
-  filter: blur(18px);
-  opacity: .42;
-  transition: opacity .36s ease, transform .36s ease;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 28%, transparent), transparent 70%);
+  filter: blur(16px);
+  opacity: .34;
+  transition: opacity .32s ease, transform .32s ease;
 }
 
 .portfolio-card-grid {
@@ -261,7 +289,7 @@ html[data-theme="light"] .portfolio-glass-card {
     linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
   background-size: 34px 34px;
-  opacity: .12;
+  opacity: .1;
   mask-image: linear-gradient(to bottom, #000, transparent 70%);
 }
 
@@ -288,7 +316,7 @@ html[data-theme="light"] .portfolio-shot-wrap {
 
 .portfolio-shot {
   transform-origin: center;
-  transition: transform .5s cubic-bezier(.22,1,.36,1), filter .5s ease, opacity .3s ease;
+  transition: transform .38s cubic-bezier(.22,1,.36,1), filter .38s ease, opacity .2s ease;
 }
 
 .portfolio-shot-vignette {
@@ -297,10 +325,10 @@ html[data-theme="light"] .portfolio-shot-wrap {
   z-index: 2;
   pointer-events: none;
   background:
-    linear-gradient(to top, rgba(0,0,0,.36), transparent 45%),
+    linear-gradient(to top, rgba(0,0,0,.32), transparent 45%),
     radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 45%);
-  opacity: .78;
-  transition: opacity .36s ease;
+  opacity: .72;
+  transition: opacity .32s ease;
 }
 
 html[data-theme="light"] .portfolio-shot-vignette {
@@ -358,7 +386,7 @@ html[data-theme="light"] .portfolio-shot-vignette {
   border: 1px solid rgba(255,255,255,.11);
   background: rgba(255,255,255,.065);
   color: var(--text-primary);
-  transition: transform .32s cubic-bezier(.22,1,.36,1), background .32s ease, color .32s ease;
+  transition: transform .28s cubic-bezier(.22,1,.36,1), background .28s ease, color .28s ease;
 }
 
 html[data-theme="light"] .portfolio-open-icon {
@@ -402,50 +430,50 @@ html[data-theme="light"] .portfolio-open-icon {
   font-weight: 900;
   opacity: 0;
   transform: translateY(12px) scale(.98);
-  box-shadow: 0 18px 45px color-mix(in srgb, var(--accent) 24%, transparent);
-  transition: opacity .32s ease, transform .32s cubic-bezier(.22,1,.36,1);
+  box-shadow: 0 18px 45px color-mix(in srgb, var(--accent) 20%, transparent);
+  transition: opacity .28s ease, transform .28s cubic-bezier(.22,1,.36,1);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .portfolio-glass-card:hover,
   .portfolio-glass-card:focus-visible {
-    transform: translateY(-10px) scale(1.015);
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border-default));
+    transform: translateY(-7px) scale(1.01);
+    border-color: color-mix(in srgb, var(--accent) 42%, var(--border-default));
     box-shadow:
-      0 34px 95px rgba(0,0,0,.44),
-      0 0 42px color-mix(in srgb, var(--accent) 14%, transparent),
-      inset 0 1px 0 rgba(255,255,255,.16);
+      0 28px 76px rgba(0,0,0,.38),
+      0 0 32px color-mix(in srgb, var(--accent) 11%, transparent),
+      inset 0 1px 0 rgba(255,255,255,.15);
   }
 
   html[data-theme="light"] .portfolio-glass-card:hover,
   html[data-theme="light"] .portfolio-glass-card:focus-visible {
     box-shadow:
-      0 34px 90px rgba(88,75,56,.20),
-      0 0 38px color-mix(in srgb, var(--accent) 18%, transparent),
+      0 28px 72px rgba(88,75,56,.18),
+      0 0 30px color-mix(in srgb, var(--accent) 15%, transparent),
       inset 0 1px 0 rgba(255,255,255,.95);
   }
 
   .portfolio-glass-card:hover::before,
   .portfolio-glass-card:focus-visible::before {
-    opacity: .85;
+    opacity: .75;
   }
 
   .portfolio-glass-card:hover::after,
   .portfolio-glass-card:focus-visible::after {
     opacity: 1;
-    transform: translateX(38%) rotate(8deg);
+    transform: translateX(32%) rotate(8deg);
   }
 
   .portfolio-glass-card:hover .portfolio-card-light,
   .portfolio-glass-card:focus-visible .portfolio-card-light {
-    opacity: .82;
-    transform: scale(1.14);
+    opacity: .72;
+    transform: scale(1.1);
   }
 
   .portfolio-glass-card:hover .portfolio-shot,
   .portfolio-glass-card:focus-visible .portfolio-shot {
-    transform: scale(1.035) !important;
-    filter: saturate(1.08) contrast(1.04);
+    transform: scale(1.025) !important;
+    filter: saturate(1.06) contrast(1.03);
   }
 
   .portfolio-glass-card:hover .portfolio-shot-vignette,
@@ -455,7 +483,7 @@ html[data-theme="light"] .portfolio-open-icon {
 
   .portfolio-glass-card:hover .portfolio-open-icon,
   .portfolio-glass-card:focus-visible .portfolio-open-icon {
-    transform: rotate(8deg) scale(1.08);
+    transform: rotate(8deg) scale(1.06);
     background: var(--accent);
     color: #050505;
   }
@@ -470,32 +498,66 @@ html[data-theme="light"] .portfolio-open-icon {
 @supports (content-visibility: auto) {
   section:not(#home) {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 760px;
+    contain-intrinsic-size: auto 760px;
   }
 
   .section-panel,
   .interactive-card,
   .portfolio-item {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 430px;
+    contain-intrinsic-size: auto 430px;
   }
+}
+
+html.perf-lite .custom-cursor-ring,
+html.perf-lite .custom-cursor-dot,
+html.perf-lite .particle-field,
+html.perf-lite .depth-rings,
+html.perf-lite .spotlight-layer,
+html.perf-lite .noise-layer {
+  display: none !important;
+}
+
+html.perf-lite .aurora {
+  opacity: .06 !important;
+  filter: blur(30px) !important;
+  animation: none !important;
+}
+
+html.perf-lite .cyber-grid {
+  opacity: .035 !important;
+  animation: none !important;
+}
+
+html.is-scrolling .portfolio-glass-card::after,
+html.is-scrolling .interactive-card::before,
+html.is-scrolling .section-panel::before {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+html.is-scrolling .portfolio-glass-card,
+html.is-scrolling .interactive-card {
+  transition-duration: .12s !important;
 }
 
 @media (max-width: 768px) {
   .aurora {
-    filter: blur(38px) !important;
-    opacity: 0.1 !important;
+    filter: blur(34px) !important;
+    opacity: 0.08 !important;
   }
 
   .cyber-grid,
   .depth-rings,
   .particle-field,
   .spotlight-layer {
-    opacity: 0.05 !important;
+    opacity: 0.04 !important;
   }
 
   .portfolio-glass-card {
     min-height: 405px;
+    backdrop-filter: blur(10px) saturate(1.02);
+    -webkit-backdrop-filter: blur(10px) saturate(1.02);
   }
 
   .portfolio-card-copy {
@@ -513,7 +575,8 @@ html[data-theme="light"] .portfolio-open-icon {
   .skeleton-block::after,
   .skeleton-card::after,
   .skeleton-line::after,
-  .skeleton-pill::after {
+  .skeleton-pill::after,
+  .portfolio-card-enter {
     animation: none;
   }
 
