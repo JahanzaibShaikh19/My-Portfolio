@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { works, type WorkItem } from "@/data/content";
 import { extraWorks } from "@/data/extraWorks";
@@ -60,10 +59,11 @@ export default function Portfolio() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-3 mb-10" aria-label="Portfolio filters">
           {FILTERS.map((filter) => (
             <button
               key={filter.key}
+              type="button"
               onClick={() => setActiveFilter(filter.key)}
               aria-pressed={activeFilter === filter.key}
               className={`filter-pill ${
@@ -76,72 +76,62 @@ export default function Portfolio() {
         </div>
       </RevealOnScroll>
 
-      <motion.div
-        layout
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7"
-      >
-        <AnimatePresence mode="popLayout">
-          {filteredWorks.map((work) => (
-            <motion.div
-              key={work.slug}
-              layout
-              initial={{ opacity: 0, y: 18, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.96 }}
-              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+      <div className="portfolio-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+        {filteredWorks.map((work, index) => (
+          <article
+            key={work.slug}
+            className="portfolio-card-enter h-full"
+            style={{ animationDelay: `${Math.min(index * 45, 220)}ms` }}
+          >
+            <Link
+              href={`/work/${work.slug}`}
+              className="portfolio-item portfolio-glass-card group block h-full overflow-hidden rounded-[28px] relative"
             >
-              <article className="h-full">
-                <Link
-                  href={`/work/${work.slug}`}
-                  className="portfolio-item portfolio-glass-card group block h-full overflow-hidden rounded-[28px] relative"
-                >
-                  <div className="portfolio-card-light" aria-hidden="true" />
-                  <div className="portfolio-card-grid" aria-hidden="true" />
+              <div className="portfolio-card-light" aria-hidden="true" />
+              <div className="portfolio-card-grid" aria-hidden="true" />
 
-                  <div className="portfolio-shot-wrap">
-                    <ProjectImage
-                      src={work.gridCover ?? work.cover}
-                      alt={work.title}
-                      className="portfolio-shot object-contain p-3 md:p-4"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      placeholder="blur"
-                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM4ODgiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+"
-                    />
-                    <span className="portfolio-shot-vignette" aria-hidden="true" />
+              <div className="portfolio-shot-wrap">
+                <ProjectImage
+                  src={work.gridCover ?? work.cover}
+                  alt={work.title}
+                  className="portfolio-shot object-contain p-3 md:p-4"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM4ODgiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PC9zdmc+"
+                />
+                <span className="portfolio-shot-vignette" aria-hidden="true" />
+              </div>
+
+              <div className="portfolio-card-body">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <span className="portfolio-kicker">{work.categoryLabel}</span>
+                    <h3 className="portfolio-card-title">{work.title}</h3>
                   </div>
-
-                  <div className="portfolio-card-body">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="min-w-0">
-                        <span className="portfolio-kicker">{work.categoryLabel}</span>
-                        <h3 className="portfolio-card-title">{work.title}</h3>
-                      </div>
-                      <span className="portfolio-open-icon" aria-hidden="true">
-                        <ArrowUpRight className="h-4 w-4" />
-                      </span>
-                    </div>
-
-                    <p className="portfolio-card-copy">{work.description}</p>
-
-                    <div className="portfolio-tag-row">
-                      {work.tags.slice(0, 3).map((tag) => (
-                        <span key={tag} className="portfolio-tag">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="portfolio-hover-cta" aria-hidden="true">
-                    <span>Open case study</span>
+                  <span className="portfolio-open-icon" aria-hidden="true">
                     <ArrowUpRight className="h-4 w-4" />
-                  </div>
-                </Link>
-              </article>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+                  </span>
+                </div>
+
+                <p className="portfolio-card-copy">{work.description}</p>
+
+                <div className="portfolio-tag-row">
+                  {work.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="portfolio-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="portfolio-hover-cta" aria-hidden="true">
+                <span>Open case study</span>
+                <ArrowUpRight className="h-4 w-4" />
+              </div>
+            </Link>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
