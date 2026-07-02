@@ -50,7 +50,7 @@ export default function ProjectImage({
           className={`transition-opacity duration-200 ${className} ${visibilityClass}`}
           sizes={sizes}
           priority={priority}
-          loading={priority ? "eager" : "lazy"}
+          loading={priority ? undefined : "lazy"}
           placeholder={placeholder}
           blurDataURL={blurDataURL}
           quality={priority ? 82 : 72}
