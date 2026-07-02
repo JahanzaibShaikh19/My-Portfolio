@@ -8,6 +8,7 @@ import "./premium-ux.css";
 import Preloader from "@/components/Preloader";
 import AmbientBackground from "@/components/AmbientBackground";
 import CustomCursor from "@/components/CustomCursor";
+import PerformanceGuard from "@/components/PerformanceGuard";
 import { siteConfig } from "@/config/site";
 
 const poppins = Poppins({
@@ -199,6 +200,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased selection:bg-accent selection:text-black">
+        <PerformanceGuard />
         <Preloader />
         <AmbientBackground />
         <CustomCursor />
