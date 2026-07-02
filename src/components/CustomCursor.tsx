@@ -11,6 +11,20 @@ const INTERACTIVE_SELECTOR = [
   ".filter-pill",
 ].join(",");
 
+function shouldDisableCursor() {
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean; effectiveType?: string };
+  }).connection;
+  const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+
+  return Boolean(
+    connection?.saveData ||
+      connection?.effectiveType === "2g" ||
+      connection?.effectiveType === "slow-2g" ||
+      (typeof deviceMemory === "number" && deviceMemory <= 4)
+  );
+}
+
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -19,7 +33,7 @@ export default function CustomCursor() {
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!isFinePointer || prefersReducedMotion) return;
+    if (!isFinePointer || prefersReducedMotion || shouldDisableCursor()) return;
 
     const root = document.documentElement;
     const dot = dotRef.current;
@@ -35,6 +49,7 @@ export default function CustomCursor() {
     let visible = false;
     let hovering = false;
     let pressed = false;
+    let lastHoverTarget: EventTarget | null = null;
 
     root.classList.add("custom-cursor-active");
 
@@ -46,15 +61,15 @@ export default function CustomCursor() {
     };
 
     const render = () => {
-      currentX += (targetX - currentX) * 0.58;
-      currentY += (targetY - currentY) * 0.58;
+      currentX += (targetX - currentX) * 0.5;
+      currentY += (targetY - currentY) * 0.5;
 
-      const scale = pressed ? 0.82 : hovering ? 1.65 : 1;
+      const scale = pressed ? 0.82 : hovering ? 1.58 : 1;
       dot.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
       ring.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%) scale(${scale})`;
 
       const distance = Math.abs(targetX - currentX) + Math.abs(targetY - currentY);
-      if (distance > 0.12 || pressed || hovering) {
+      if (distance > 0.14 || pressed || hovering) {
         frame = window.requestAnimationFrame(render);
       } else {
         frame = 0;
@@ -65,22 +80,18 @@ export default function CustomCursor() {
       if (!frame) frame = window.requestAnimationFrame(render);
     };
 
+    const updateHoverState = (eventTarget: EventTarget | null) => {
+      if (lastHoverTarget === eventTarget) return;
+      lastHoverTarget = eventTarget;
+      const target = eventTarget as HTMLElement | null;
+      hovering = Boolean(target?.closest(INTERACTIVE_SELECTOR));
+    };
+
     const handlePointerMove = (event: PointerEvent) => {
       targetX = event.clientX;
       targetY = event.clientY;
+      updateHoverState(event.target);
       setOpacity(true);
-      startLoop();
-    };
-
-    const handlePointerOver = (event: PointerEvent) => {
-      const target = event.target as HTMLElement | null;
-      hovering = Boolean(target?.closest(INTERACTIVE_SELECTOR));
-      startLoop();
-    };
-
-    const handlePointerOut = (event: PointerEvent) => {
-      const target = event.relatedTarget as HTMLElement | null;
-      hovering = Boolean(target?.closest(INTERACTIVE_SELECTOR));
       startLoop();
     };
 
@@ -98,11 +109,10 @@ export default function CustomCursor() {
       setOpacity(false);
       hovering = false;
       pressed = false;
+      lastHoverTarget = null;
     };
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    window.addEventListener("pointerover", handlePointerOver, { passive: true });
-    window.addEventListener("pointerout", handlePointerOut, { passive: true });
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("pointerup", handlePointerUp, { passive: true });
     window.addEventListener("pointerleave", handlePointerLeave, { passive: true });
@@ -111,8 +121,6 @@ export default function CustomCursor() {
       root.classList.remove("custom-cursor-active");
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerover", handlePointerOver);
-      window.removeEventListener("pointerout", handlePointerOut);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
       window.removeEventListener("pointerleave", handlePointerLeave);
