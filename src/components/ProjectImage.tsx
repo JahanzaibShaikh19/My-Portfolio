@@ -25,6 +25,7 @@ export default function ProjectImage({
   const [loaded, setLoaded] = useState(false);
   const usePlainImage = src.startsWith("data:") || src.endsWith(".svg");
   const visibilityClass = loaded ? "opacity-100" : "opacity-0";
+  const markLoaded = () => setLoaded(true);
 
   return (
     <>
@@ -33,25 +34,29 @@ export default function ProjectImage({
         <img
           src={src}
           alt={alt}
-          className={`absolute inset-0 h-full w-full transition-opacity duration-300 ${className} ${visibilityClass}`}
+          className={`absolute inset-0 h-full w-full transition-opacity duration-200 ${className} ${visibilityClass}`}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
           fetchPriority={priority ? "high" : "auto"}
-          onLoad={() => setLoaded(true)}
-          onError={() => setLoaded(true)}
+          draggable={false}
+          onLoad={markLoaded}
+          onError={markLoaded}
         />
       ) : (
         <Image
           src={src}
           alt={alt}
           fill
-          className={`transition-opacity duration-300 ${className} ${visibilityClass}`}
+          className={`transition-opacity duration-200 ${className} ${visibilityClass}`}
           sizes={sizes}
           priority={priority}
+          loading={priority ? "eager" : "lazy"}
           placeholder={placeholder}
           blurDataURL={blurDataURL}
-          onLoad={() => setLoaded(true)}
-          onError={() => setLoaded(true)}
+          quality={priority ? 82 : 72}
+          draggable={false}
+          onLoad={markLoaded}
+          onError={markLoaded}
         />
       )}
     </>
