@@ -2,12 +2,48 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/**
- * Returns a ref to attach to an element and a boolean that flips to
- * true once the element scrolls into view. Mirrors the old
- * `.classic-animation` / `.scale-animation` / `.clip-animation`
- * jQuery scroll-reveal behavior, but via IntersectionObserver.
- */
+type RevealElement = HTMLElement;
+
+type RevealSubscription = {
+  setVisible: () => void;
+  optionsKey: string;
+};
+
+const subscriptions = new WeakMap<RevealElement, RevealSubscription>();
+const observers = new Map<string, IntersectionObserver>();
+
+function createOptionsKey(options?: IntersectionObserverInit) {
+  return JSON.stringify({
+    rootMargin: options?.rootMargin ?? "0px",
+    threshold: options?.threshold ?? 0.12,
+  });
+}
+
+function getObserver(optionsKey: string, options?: IntersectionObserverInit) {
+  const existingObserver = observers.get(optionsKey);
+  if (existingObserver) return existingObserver;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+
+        const element = entry.target as RevealElement;
+        const subscription = subscriptions.get(element);
+        if (!subscription) continue;
+
+        subscription.setVisible();
+        observer.unobserve(element);
+        subscriptions.delete(element);
+      }
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px", ...options }
+  );
+
+  observers.set(optionsKey, observer);
+  return observer;
+}
+
 export function useReveal<T extends HTMLElement = HTMLDivElement>(
   options?: IntersectionObserverInit
 ) {
@@ -15,22 +51,28 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const element = ref.current;
+    if (!element || isVisible) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15, ...options }
-    );
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
+      return;
+    }
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [options]);
+    const optionsKey = createOptionsKey(options);
+    const observer = getObserver(optionsKey, options);
+
+    subscriptions.set(element, {
+      optionsKey,
+      setVisible: () => setIsVisible(true),
+    });
+    observer.observe(element);
+
+    return () => {
+      observer.unobserve(element);
+      subscriptions.delete(element);
+    };
+  }, [isVisible, options]);
 
   return { ref, isVisible };
 }
